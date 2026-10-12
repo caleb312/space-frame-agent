@@ -49,7 +49,7 @@
     <label>API 地址<input id="baseUrl" type="url" required></label>
     <label>API 密钥<input id="apiKey" type="password" autocomplete="off" placeholder="已有内存密钥或环境变量时，可留空"></label><small id="keyHint" class="muted"></small>
     <button type="button" id="discoverModels">读取模型列表</button><small id="modelListHint" class="muted">填完密钥并离开输入框后自动读取；不会调用推理。目录不代表已通过视觉和工具调用验证。</small>
-    <div class="form-grid"><label>DeepSeek 思考模式<select id="thinking"><option value="disabled">关闭（本次演示采用）</option><option value="enabled">开启，推理强度 low</option></select></label><label>网络等待 / 秒<input id="timeout" type="number" min="1" value="180" required></label></div>
+    <label>网络等待 / 秒<input id="timeout" type="number" min="1" value="180" required></label>
     <label class="check-label"><input id="vision" type="checkbox" checked> 此模型支持图片输入与工具调用</label>
     <p id="settingsError" class="inline-error" hidden></p><div class="dialog-footer"><button type="button" id="disconnectButton" class="quiet">断开 API 连接</button><button type="submit" class="primary">保存连接设置</button></div>
   </form>

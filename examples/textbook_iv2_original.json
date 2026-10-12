@@ -1,0 +1,265 @@
+{
+  "source": {
+    "book": "Computational Structural Mechanics, Yan Jun / Yang Chunqiu, 2014",
+    "example": "IV-2",
+    "printed_pages": [
+      187,
+      188,
+      189
+    ],
+    "pdf_pages": [
+      196,
+      197,
+      198
+    ]
+  },
+  "coordinates": [
+    [
+      2.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      2.0,
+      0.0
+    ],
+    [
+      2.0,
+      0.0,
+      2.0
+    ],
+    [
+      0.0,
+      0.0,
+      2.0
+    ],
+    [
+      0.0,
+      2.0,
+      2.0
+    ]
+  ],
+  "connections": [
+    [
+      1,
+      4
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      3,
+      6
+    ]
+  ],
+  "fixed_nodes": 3,
+  "E": 210000000.0,
+  "G": 80769000.0,
+  "A": 0.007854,
+  "Iy": 4.9087e-06,
+  "Iz": 4.9087e-06,
+  "J": 9.8174e-06,
+  "roll": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "member_loads": [
+    {
+      "element": 2,
+      "plane": 1,
+      "kind": 3,
+      "value": -5.0,
+      "position": 0.0
+    },
+    {
+      "element": 2,
+      "plane": 1,
+      "kind": 1,
+      "value": 10.0,
+      "position": 1.0
+    },
+    {
+      "element": 3,
+      "plane": 1,
+      "kind": 2,
+      "value": 4.0,
+      "position": 2.0
+    },
+    {
+      "element": 3,
+      "plane": 0,
+      "kind": 2,
+      "value": -4.0,
+      "position": 2.0
+    },
+    {
+      "element": 4,
+      "plane": 1,
+      "kind": 1,
+      "value": 10.0,
+      "position": 1.0
+    },
+    {
+      "element": 4,
+      "plane": 1,
+      "kind": 3,
+      "value": 5.0,
+      "position": 2.0
+    }
+  ],
+  "reference_node_ids": [
+    4,
+    5,
+    6
+  ],
+  "reference_displacements": [
+    [
+      40.0025641,
+      -0.0005023,
+      -4.3e-06,
+      0.0022653,
+      0.0005257,
+      -0.0014299
+    ],
+    [
+      50.0025679,
+      0.0015484,
+      6.1e-06,
+      -0.0005258,
+      0.0017588,
+      -0.0020916
+    ],
+    [
+      0.0090324,
+      0.0015463,
+      -1.8e-06,
+      -0.0004514,
+      0.0079994,
+      -0.0021722
+    ]
+  ],
+  "reference_convention": "appendix4_right_hand",
+  "displacement_atol": 5e-07,
+  "rotation_atol": 1e-07,
+  "sections": [
+    {
+      "element": 1,
+      "position": 1.0
+    },
+    {
+      "element": 2,
+      "position": 1.0
+    },
+    {
+      "element": 3,
+      "position": 1.0
+    },
+    {
+      "element": 4,
+      "position": 1.0
+    },
+    {
+      "element": 5,
+      "position": 1.0
+    }
+  ],
+  "reference_section_forces": [
+    [
+      -3.5164618,
+      -2.7258954,
+      3.1518428,
+      -0.5669169,
+      -0.2709556,
+      -1.167547
+    ],
+    [
+      -3.1518555,
+      3.5164616,
+      7.2741041,
+      1.1065574,
+      -2.1589789,
+      0.6355746
+    ],
+    [
+      5.0151639,
+      -1.5812327,
+      1.2510285,
+      -0.8292401,
+      -1.5731969,
+      0.9376483
+    ],
+    [
+      -1.692749,
+      -1.498702,
+      1.597208,
+      2.4742043,
+      -2.4584265,
+      0.0383248
+    ],
+    [
+      -1.4987019,
+      -1.6930337,
+      1.597208,
+      -0.8612195,
+      -4.1230469,
+      0.2326567
+    ]
+  ],
+  "reference_displacements_corrected": [
+    [
+      0.0025641,
+      -0.0005023,
+      -4.3e-06,
+      0.0022653,
+      0.0005257,
+      -0.0014299
+    ],
+    [
+      0.0025679,
+      0.0015484,
+      6.1e-06,
+      -0.0005258,
+      0.0017588,
+      -0.0020916
+    ],
+    [
+      0.0090324,
+      0.0015463,
+      -1.8e-06,
+      -0.0004514,
+      0.0079994,
+      -0.0021722
+    ]
+  ],
+  "project_errata": {
+    "id": "E04",
+    "status": "project verification, not publisher erratum",
+    "original_values": [
+      40.0025641,
+      50.0025679
+    ],
+    "comparison_values": [
+      0.0025641,
+      0.0025679
+    ],
+    "reason": "Printed leading node digits conflict with original input equilibrium; verify independently with Hermite energy integration"
+  }
+}

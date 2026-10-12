@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>空间刚架 Agent · 工作台</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<aside class="sidebar">
+  <div class="brand"><span class="brandmark">⌘</span><div>SPACE FRAME<span>空间刚架智能计算</span></div></div>
+  <button id="newSession" class="new-session">＋ 新建分析</button>
+  <div class="side-label">工作空间</div>
+  <div class="side-current"><span>◇</span> 结构分析工作台 <span class="live-dot"></span></div>
+  <div class="side-label saved-heading">已保存的计算 <button id="refreshSaved" title="刷新结果列表">↻</button></div>
+  <div id="savedList" class="saved-list"><span class="muted">正在读取…</span></div>
+  <div class="side-bottom"><div class="connection"><span id="connectionDot" class="dot"></span><span id="connectionText">尚未连接 API</span></div><button id="settingsButton">⚙ 模型设置</button><p>本地课程项目 · 线弹性杆系结构<br>AI 建模，Python Solver 计算</p></div>
+</aside>
+<main>
+  <header><div><div class="eyebrow">STRUCTURAL ANALYSIS WORKSPACE</div><h1>空间刚架 Agent</h1><p>从结构图片到可核对的模型，再到计算结果。</p></div><div class="header-right"><span class="local-badge">● 本机运行</span><button id="topSettings" class="quiet">模型设置</button></div></header>
+  <div class="workflow"><div data-step="1"><b>1</b> 识别与澄清</div><span>→</span><div data-step="2"><b>2</b> 确认模型</div><span>→</span><div data-step="3"><b>3</b> 确定性求解</div><span>→</span><div data-step="4"><b>4</b> 结果与三维</div><span id="stateBadge" class="state-badge">等待输入</span></div>
+  <div id="errorBanner" class="error-banner" role="alert" hidden></div>
+  <div class="workspace">
+    <section class="chat-panel panel">
+      <div class="panel-heading"><div><span class="small-icon">✦</span><h2>分析对话</h2></div><span id="providerBadge" class="tag">DeepSeek</span></div>
+      <div id="chatLog" class="chat-log" aria-live="polite"></div>
+      <div id="busyBar" class="busy-bar" hidden><span class="spinner"></span><span id="busyText"></span></div>
+      <div class="composer">
+        <div class="mode-control" role="group" aria-label="对话模式"><button id="readMode">图片识读</button><button id="modelMode" class="selected">建模与纠正</button><button id="explainMode">结果追问</button></div>
+        <p id="modeNote" class="composer-note">补充或修改结构信息后，模型需要重新确认。</p>
+        <div id="attachment" class="attachment" hidden><img id="attachmentPreview" alt="待发送图片"><div><strong id="attachmentName"></strong><small>随本次问题发送到所选 API</small></div><button id="removeImage" aria-label="移除图片">×</button></div>
+        <div id="documentAttachment" class="document-attachment" hidden><div><strong id="documentName"></strong><button id="removeDocument" type="button" aria-label="移除条件文件">×</button></div><small>UTF-8 Markdown · 点击发送后才交给所选 API</small><details><summary>预览文件文字</summary><pre id="documentPreview"></pre></details></div>
+        <label class="sr-only" for="message">问题或模型补充信息</label><textarea id="message" rows="4" placeholder="上传结构图，或描述节点、构件、支座和荷载…"></textarea>
+        <div class="composer-actions"><label class="upload-button" for="imageFile">＋ 上传图片</label><input id="imageFile" type="file" accept="image/png,image/jpeg,image/webp" hidden><label id="documentUploadLabel" class="upload-button" for="documentFile">＋ 导入 .md</label><input id="documentFile" type="file" accept=".md,text/markdown,text/plain" hidden><small>Ctrl+Enter 发送</small><button id="sendButton" class="primary">发送 <span>↑</span></button></div>
+      </div>
+    </section>
+    <section class="analysis-panel panel">
+      <div class="panel-heading"><div><span class="small-icon">◇</span><h2>模型与结果</h2></div><span id="modelMeta" class="muted">尚无模型</span></div>
+      <nav class="tabs" aria-label="分析面板"><button data-tab="reading">图片记录</button><button data-tab="model" class="active">模型核对</button><button data-tab="visual">三维查看</button><button data-tab="result">计算结果</button><button data-tab="source">来源记录</button></nav>
+      <div id="readingPane" class="pane" hidden></div>
+      <div id="modelPane" class="pane"></div>
+      <div id="visualPane" class="pane" hidden><div class="view-actions"><span id="visualHint" class="muted"></span><button id="regenerateVisual" class="quiet">生成／刷新</button><a id="openVisual" class="button-link" href="/api/visual" target="_blank" rel="noopener">独立窗口 ↗</a></div><iframe id="visualFrame" title="三维结构与结果" hidden></iframe><div id="visualEmpty" class="empty-view"><span>◇</span><h3>等待完整的结构模型</h3><p>几何、连接和参数完整后，可先预览结构；计算后显示变形与内力。</p></div></div>
+      <div id="resultPane" class="pane" hidden></div>
+      <div id="sourcePane" class="pane" hidden></div>
+      <div class="confirm-footer"><div><strong id="confirmTitle">先建立结构模型</strong><small id="confirmNote">信息不完整时会列出待澄清项。</small></div><div class="confirm-actions"><label><input id="autoExplain" type="checkbox" checked> 计算后生成概要</label><button id="confirmButton" class="primary" disabled>确认模型并计算 →</button></div></div>
+    </section>
+  </div>
+  <footer>支持线弹性平面／空间桁架与刚架。图形与数值由程序生成，图片识别信息需要核对。</footer>
+</main>
+<dialog id="settingsDialog">
+  <form id="settingsForm"><div class="dialog-heading"><div><span class="eyebrow">MODEL CONNECTION</span><h2>模型设置</h2></div><button type="button" id="closeSettings" class="close-button">×</button></div><p class="muted">输入内容和图片会发送到所选 API。页面填写的密钥仅保存在服务内存；GPT 也可读取项目 .env.local 中已保存的密钥，不向页面返回明文。</p>
+    <div class="form-grid"><label>服务商<select id="provider"><option value="deepseek">DeepSeek</option><option value="qwen">Qwen</option><option value="gpt">GPT / OpenAI</option></select></label><label>可选模型<select id="modelChoice"><option value="">先读取模型列表</option></select></label></div>
+    <label>模型 ID（列表选择后自动填写，也可手动输入）<input id="apiModel" required autocomplete="off" placeholder="选择列表中的模型"></label>
+    <label>API 地址<input id="baseUrl" type="url" required></label>
+    <label>API 密钥<input id="apiKey" type="password" autocomplete="off" placeholder="已有内存密钥或环境变量时，可留空"></label><small id="keyHint" class="muted"></small>
+    <button type="button" id="discoverModels">读取模型列表</button><small id="modelListHint" class="muted">填完密钥并离开输入框后自动读取；不会调用推理。目录不代表已通过视觉和工具调用验证。</small>
+    <div class="form-grid"><label>DeepSeek 思考模式<select id="thinking"><option value="disabled">关闭（本次演示采用）</option><option value="enabled">开启，推理强度 low</option></select></label><label>网络等待 / 秒<input id="timeout" type="number" min="1" value="180" required></label></div>
+    <label class="check-label"><input id="vision" type="checkbox" checked> 此模型支持图片输入与工具调用</label>
+    <p id="settingsError" class="inline-error" hidden></p><div class="dialog-footer"><button type="button" id="disconnectButton" class="quiet">断开 API 连接</button><button type="submit" class="primary">保存连接设置</button></div>
+  </form>
+</dialog>
+<dialog id="resetDialog"><h2>开始新的分析？</h2><p>当前分析会先存档，再清空工作区。已求解模型会加入保存结果列表；也可以先下载文件。</p><div class="dialog-footer"><button id="cancelReset" class="quiet">保留当前分析</button><button id="confirmReset" class="primary">开始新分析</button></div></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+<script src="/app.js"></script>
+</body></html>

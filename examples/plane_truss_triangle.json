@@ -1,0 +1,87 @@
+{
+  "structure_type": "plane_truss",
+  "units": "kN_m",
+  "convention": "course_clockwise",
+  "nodes": [
+    {
+      "id": 10,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": 20,
+      "coordinates": [
+        2.0,
+        0.0
+      ],
+      "restrained": [
+        false,
+        true
+      ]
+    },
+    {
+      "id": 30,
+      "coordinates": [
+        1.0,
+        1.0
+      ],
+      "restrained": [
+        false,
+        false
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "id": 1,
+      "E": 200000000.0
+    }
+  ],
+  "sections": [
+    {
+      "id": 1,
+      "A": 0.01,
+      "I": null
+    }
+  ],
+  "elements": [
+    {
+      "id": 100,
+      "node_i": 10,
+      "node_j": 20,
+      "material_id": 1,
+      "section_id": 1
+    },
+    {
+      "id": 101,
+      "node_i": 10,
+      "node_j": 30,
+      "material_id": 1,
+      "section_id": 1
+    },
+    {
+      "id": 102,
+      "node_i": 20,
+      "node_j": 30,
+      "material_id": 1,
+      "section_id": 1
+    }
+  ],
+  "loads": [
+    {
+      "node_id": 30,
+      "components": [
+        0.0,
+        -10.0
+      ]
+    }
+  ],
+  "member_loads": [],
+  "section_queries": []
+}

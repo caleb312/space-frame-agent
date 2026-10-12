@@ -1,0 +1,37 @@
+{
+  "tests_run": 56,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "success": true,
+  "parameter_calculation_id": "2ff0ee7d696c91697c25f4364d8c62dfcbcec4c3c8cd64f10dd92bd6f4a2435c",
+  "computed_fields_in_demo": 6,
+  "remaining_blockers_in_demo": [
+    "/nodes/0/restrained：待确定",
+    "/nodes/1/coordinates：待确定",
+    "/nodes/1/restrained：待确定",
+    "/elements/0/local_y：待确定",
+    "/elements/1/local_y：待确定",
+    "/elements/2/local_y：待确定",
+    "q_1_0.8kN_per_m：属于杆上荷载，当前 Solver 接口不支持；原始荷载已保留，禁止移到节点",
+    "P_mid1_4kN：属于杆上荷载，当前 Solver 接口不支持；原始荷载已保留，禁止移到节点",
+    "M_4_3kNm：作用节点或荷载方向/分量缺失",
+    "指定截面内力尚未接入通用 Solver 工具，不能以杆端力代替",
+    "待澄清：节点2的三维坐标如何确定？图中仅见斜向3m标注，它相对节点4的y向（沿杆①）偏移是否为3m、是否还有x向偏移？",
+    "待澄清：杆①跨中的4kN是否沿全局+x方向？节点4附近的3kN·m力偶绕哪个坐标轴、转向如何？",
+    "待澄清：节点1、节点2的支座各约束哪些自由度（图中支座符号的具体类型）？",
+    "待澄清：各杆局部y轴方向图中未给出；圆截面杆是否可由程序取默认局部轴？"
+  ],
+  "structural_solver_called_in_demo": false,
+  "api_requests": 0,
+  "file_hashes": {
+    "src/solver/parameters.py": "e7e4260d50d362f9a3c61dae3bf92de483e792b98fce9ef2b76a3e3ec116c330",
+    "src/solver/__init__.py": "18e27eb0cb3e37dbb891a37f36d4025f4f9a902dc5dac3ee7dd4ec6ba3b5430e",
+    "src/agent/recognition.py": "97ed2d7357d6beb06e1b70e0695ddb99cc301722d6479402a258048ef9c1bea1",
+    "src/agent/runtime.py": "5a622d6dfad6eb68660e27b23ef168ad10dd69b038086f867e23334a5816f786",
+    "parameters_main.py": "dd99c60e00ee323d4e07c985e412ed46796e60e76a4963e09434b314b8416591",
+    "tests/test_parameters.py": "9b15906e1fd30f1f6f8abb9504141a03d02afe96dde0159048abac95d7176ce2",
+    "examples/material_section_iv1.json": "a93fbcdf924b12ea6f713370f58a2b0db540c7bcb12cbceafb70525dfb1703a4",
+    "docs/theory/material-section.md": "eacde90535f8165f15f2dd64f04d0044bb3195be522b235608d750b9b48b7d1d"
+  }
+}

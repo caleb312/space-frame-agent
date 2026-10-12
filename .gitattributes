@@ -1,0 +1,4 @@
+# Windows double-click launchers require CRLF, including after a Git checkout.
+*.cmd text eol=crlf
+# Preserve the exact vendored library bytes and its recorded SHA256.
+src/visualization/assets/*.min.js -text

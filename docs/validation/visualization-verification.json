@@ -1,0 +1,31 @@
+{
+  "tests_run": 84,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "success": true,
+  "model_hash": "f1516903924212269ac8ea0707d6c2a5f917c7f3c545d197d1c590d39d12cf40",
+  "nodes": 4,
+  "elements": 3,
+  "sections": 3,
+  "loads": 5,
+  "max_endpoint_error_m": 8.673617379884035e-18,
+  "max_endpoint_error_rad": 3.469446951953614e-18,
+  "preview_solved": false,
+  "preview_curves_absent": true,
+  "agent_tool_status": "visualized",
+  "api_requests": 0,
+  "browser_checks": "Actual local browser: 3D structure and deformation, My colorbar, section values, XZ projection, PNG export; console warning/error list empty",
+  "file_hashes": {
+    "src/solver/postprocessing.py": "17f5540ed24e5f96c55abf735122b21a0a1149aa47b63735654e4990f9076ca1",
+    "src/visualization/frame.py": "f00850da474a1946a7b876cad586936c406b7b1997fc5b939643ec95ea137ebc",
+    "src/visualization/viewer.html": "ed054ab372b2f82b61a95844b6c13702046ea338f17b838877c1195a0432cb8e",
+    "src/visualization/assets/manifest.json": "84b2ffae1f130924cb56a6b196109422bd6a9554890f1b2c79905ad93ca80f2a",
+    "src/agent/runtime.py": "46e3e4f3a7ba1f18039b1a38b939a52d8fbf7eaa32cb98b3752e15b1446b284d",
+    "agent_main.py": "a832732606afc7cfa9cbd765fd96fe5c18dd85e87efa720c67561d558d8a2923",
+    "visualize_result.py": "37a62c4ce22e0155fe0142b8fa1fab0792d8791ce8e986321f3588ad73df2875",
+    "tests/test_postprocessing.py": "dccd5603224b52aafb3cc95fc29ab9caf6bed7a64cf4c1ca681ad4014330bacb",
+    "docs/theory/deformation.md": "8460318ac3bbf00deebbc5d7b2ebab30631f5d1168c5c2f3d560160d4d681392",
+    "docs/visualization.md": "1f67e9b0be35382ae36f8ca4ffd7c65a4b7db26c6636953a309146bd7a6778b6"
+  }
+}

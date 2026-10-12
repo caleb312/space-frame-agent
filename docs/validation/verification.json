@@ -1,0 +1,670 @@
+{
+  "tests_run": 42,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.3.5",
+  "pydantic": "2.13.5",
+  "command": "python -m unittest discover -s tests -t . -v",
+  "metrics": {
+    "cantilever_3d": {
+      "last_node_displacement_max_abs_error": 2.6020852139652106e-18,
+      "free_equation_max_abs_residual": 1.0658141036401503e-14,
+      "force_balance_max_abs": 1.0658141036401503e-14,
+      "moment_balance_max_abs": 1.5987211554602254e-14,
+      "backward_error": 2.1286480999403845e-18,
+      "model_hash": "688f04c14662f7b267b8be48826c913d23980b337a7bf9999788b55054bc19f5",
+      "cli_exit_code": 0
+    },
+    "bent_frame_3d": {
+      "last_node_displacement_max_abs_error": 2.3397950243975174e-14,
+      "free_equation_max_abs_residual": 7.275957614183426e-12,
+      "force_balance_max_abs": 4.947153797729698e-13,
+      "moment_balance_max_abs": 9.013234603116871e-12,
+      "backward_error": 8.559966698262196e-17,
+      "model_hash": "b6aa064ae5e20f920f127b3cd1be65873db838964fda710a58bfbc2c89be428c",
+      "cli_exit_code": 0
+    },
+    "closed_frame_3d": {
+      "last_node_displacement_max_abs_error": 1.463672932855431e-17,
+      "free_equation_max_abs_residual": 9.947598300641403e-14,
+      "force_balance_max_abs": 2.3803181647963356e-13,
+      "moment_balance_max_abs": 5.719869022868806e-13,
+      "backward_error": 3.252752925551151e-17,
+      "model_hash": "29b52e681cf4b5a664758d760f10d1d0b99f68d115bee12815a74df64082553c",
+      "cli_exit_code": 0
+    }
+  },
+  "textbook_cases": {
+    "iv1": {
+      "source": {
+        "book": "Computational Structural Mechanics, Yan Jun / Yang Chunqiu, 2014",
+        "example": "IV-1",
+        "printed_pages": [
+          186,
+          187
+        ],
+        "pdf_pages": [
+          195,
+          196
+        ]
+      },
+      "comparison_passed": true,
+      "scope": "Original textbook loads explicitly converted to equivalent nodes for core Solver; original section forces recovered by benchmark adapter",
+      "model_hash": "6d84a9f1e7c421b7f80b0688ec593adecce95c7ae46bc9d99cf51d15daef624f",
+      "reference_node_ids": [
+        3,
+        4
+      ],
+      "actual_displacements_appendix_right_hand": [
+        [
+          0.014394501741108488,
+          -0.002382456990407946,
+          -2.3987163520451973e-06,
+          0.0009883866843679078,
+          0.006775175688542739,
+          -0.00434183419187616
+        ],
+        [
+          0.010238580966087672,
+          -0.0023912324075986945,
+          0.007826698167003938,
+          -0.0020528273643680285,
+          0.002385581253924705,
+          0.0053706377192330535
+        ]
+      ],
+      "printed_displacements": [
+        [
+          0.0143945,
+          -0.0023823,
+          -2.4e-06,
+          0.0009884,
+          0.0067752,
+          -0.0043418
+        ],
+        [
+          0.0102386,
+          -0.0023911,
+          0.0078269,
+          -0.0020528,
+          0.0023856,
+          0.0053706
+        ]
+      ],
+      "comparison_displacements": [
+        [
+          0.0143945,
+          -0.0023823,
+          -2.4e-06,
+          0.0009884,
+          0.0067752,
+          -0.0043418
+        ],
+        [
+          0.0102386,
+          -0.0023911,
+          0.0078269,
+          -0.0020528,
+          0.0023856,
+          0.0053706
+        ]
+      ],
+      "printed_displacements_match": true,
+      "erratum": null,
+      "max_displacement_abs_error": 2.0183299606103822e-07,
+      "max_rotation_abs_error": 3.771923305379704e-08,
+      "sections": [
+        {
+          "element": 1,
+          "position": 3.0
+        },
+        {
+          "element": 2,
+          "position": 1.5
+        },
+        {
+          "element": 3,
+          "position": 2.598
+        }
+      ],
+      "actual_section_forces_appendix": [
+        [
+          -2.4122744315649243,
+          -1.081233723972592,
+          2.0612488879815674,
+          -0.5801153248631646,
+          -4.668646380452163,
+          0.07750574096394658
+        ],
+        [
+          -1.3187662760274086,
+          0.4122744315648337,
+          1.9387511120184318,
+          -1.1476069556031354,
+          -2.328011343164481,
+          -0.3396185602289723
+        ],
+        [
+          -3.784390743548071,
+          -0.12698802781987548,
+          -0.24821254223711242,
+          0.44386084075364085,
+          -0.8968602734918389,
+          0.6226198159862539
+        ]
+      ],
+      "printed_section_forces": [
+        [
+          -2.4122925,
+          -1.0812467,
+          2.0612507,
+          -0.5801092,
+          -4.6686416,
+          0.0775141
+        ],
+        [
+          -1.3187534,
+          0.4122365,
+          1.9387491,
+          -1.1476064,
+          -2.3280163,
+          -0.3396086
+        ],
+        [
+          -3.7843225,
+          -0.1270009,
+          -0.2482188,
+          0.4438522,
+          -0.8968618,
+          0.6226257
+        ]
+      ],
+      "max_section_force_abs_error": 6.824354807077881e-05,
+      "max_section_moment_abs_error": 9.960228972316632e-06,
+      "original_end_forces_right_hand": [
+        [
+          2.4122744315649243,
+          1.3187662760274084,
+          -1.9387511120184329,
+          0.5801153248631646,
+          1.1476069556031359,
+          0.278793087118278,
+          -2.4122744315649243,
+          2.081233723972592,
+          -2.0612488879815674,
+          -0.5801153248631646,
+          -1.5151002834925387,
+          -0.16619543095382827
+        ],
+        [
+          1.3187662760274086,
+          0.4122744315648337,
+          1.9387511120184318,
+          1.1476069556031354,
+          -5.2361380111921285,
+          0.9580302075762228,
+          -1.3187662760274086,
+          -2.4122744315648337,
+          -1.9387511120184318,
+          -1.1476069556031354,
+          -0.580115324863165,
+          0.278793087118278
+        ],
+        [
+          3.784390743548071,
+          -0.12698802781987548,
+          -0.24821254223711242,
+          -0.44386084075364085,
+          -0.25200408875982094,
+          -0.9525347122622904,
+          -3.784390743548071,
+          0.12698802781987548,
+          0.24821254223711242,
+          0.44386084075364085,
+          1.5417542914513649,
+          0.2926855638513077
+        ]
+      ],
+      "support_reactions_course": [
+        [
+          -1.9387511120184315,
+          0.4122744315648337,
+          1.3187662760274086,
+          0.9580302075762228,
+          5.2361380111921285,
+          -1.1476069556031354
+        ],
+        [
+          -2.0612488879816055,
+          -2.412274431564555,
+          2.08123372397273,
+          -0.8269266918219902,
+          0.5201608168904943,
+          0.4620236527440487
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "tolerances": {
+        "displacement_m": 5e-07,
+        "rotation_rad": 1e-07,
+        "section_force_kN": 0.001,
+        "section_moment_kNm": 0.001
+      }
+    },
+    "iv2": {
+      "source": {
+        "book": "Computational Structural Mechanics, Yan Jun / Yang Chunqiu, 2014",
+        "example": "IV-2",
+        "printed_pages": [
+          187,
+          188,
+          189
+        ],
+        "pdf_pages": [
+          196,
+          197,
+          198
+        ]
+      },
+      "comparison_passed": true,
+      "scope": "Original textbook loads explicitly converted to equivalent nodes for core Solver; original section forces recovered by benchmark adapter",
+      "model_hash": "81a534f55ae591cbb50fe1e916373af8a26d6f71e62e2143583c054139b313f2",
+      "reference_node_ids": [
+        4,
+        5,
+        6
+      ],
+      "actual_displacements_appendix_right_hand": [
+        [
+          0.0025640644412134603,
+          -0.0005023779950885399,
+          -4.264046080743306e-06,
+          0.002265287205618747,
+          0.0005256960874970687,
+          -0.0014298890125441868
+        ],
+        [
+          0.0025678863429468017,
+          0.0015483178996613639,
+          6.081303848888935e-06,
+          -0.0005257349851072903,
+          0.0017588303367263634,
+          -0.002091547288277843
+        ],
+        [
+          0.009032349472857143,
+          0.0015462650066693018,
+          -1.817257768145629e-06,
+          -0.00045137759183055346,
+          0.007999394292871135,
+          -0.002172221405016171
+        ]
+      ],
+      "printed_displacements": [
+        [
+          40.0025641,
+          -0.0005023,
+          -4.3e-06,
+          0.0022653,
+          0.0005257,
+          -0.0014299
+        ],
+        [
+          50.0025679,
+          0.0015484,
+          6.1e-06,
+          -0.0005258,
+          0.0017588,
+          -0.0020916
+        ],
+        [
+          0.0090324,
+          0.0015463,
+          -1.8e-06,
+          -0.0004514,
+          0.0079994,
+          -0.0021722
+        ]
+      ],
+      "comparison_displacements": [
+        [
+          0.0025641,
+          -0.0005023,
+          -4.3e-06,
+          0.0022653,
+          0.0005257,
+          -0.0014299
+        ],
+        [
+          0.0025679,
+          0.0015484,
+          6.1e-06,
+          -0.0005258,
+          0.0017588,
+          -0.0020916
+        ],
+        [
+          0.0090324,
+          0.0015463,
+          -1.8e-06,
+          -0.0004514,
+          0.0079994,
+          -0.0021722
+        ]
+      ],
+      "printed_displacements_match": false,
+      "erratum": {
+        "id": "E04",
+        "status": "project verification, not publisher erratum",
+        "original_values": [
+          40.0025641,
+          50.0025679
+        ],
+        "comparison_values": [
+          0.0025641,
+          0.0025679
+        ],
+        "reason": "Printed leading node digits conflict with original input equilibrium; verify independently with Hermite energy integration"
+      },
+      "max_displacement_abs_error": 8.210033863604443e-08,
+      "max_rotation_abs_error": 6.501489270972598e-08,
+      "sections": [
+        {
+          "element": 1,
+          "position": 1.0
+        },
+        {
+          "element": 2,
+          "position": 1.0
+        },
+        {
+          "element": 3,
+          "position": 1.0
+        },
+        {
+          "element": 4,
+          "position": 1.0
+        },
+        {
+          "element": 5,
+          "position": 1.0
+        }
+      ],
+      "actual_section_forces_appendix": [
+        [
+          -3.516430881406582,
+          -2.725881619144832,
+          3.1518077024346103,
+          -0.5669092268446804,
+          -0.2709508603931705,
+          -1.1675596071531777
+        ],
+        [
+          -3.1518077024343256,
+          3.516430881406582,
+          7.274118380855167,
+          1.1065587737019893,
+          -2.158972392300152,
+          0.6355740393651432
+        ],
+        [
+          5.015068845063238,
+          -1.581159117091548,
+          1.2509951635862935,
+          -0.8292374063333384,
+          -1.5731915664249803,
+          0.9376375754132633
+        ],
+        [
+          -1.6929592637638962,
+          -1.4986379636566556,
+          1.5971971339791509,
+          2.4742013236104126,
+          -2.4584194711324914,
+          0.03832480431963936
+        ],
+        [
+          -1.4986379636566558,
+          -1.6929592637639739,
+          1.5971971339791544,
+          -0.8612223371533377,
+          -4.122995810368735,
+          0.23264610442695677
+        ]
+      ],
+      "printed_section_forces": [
+        [
+          -3.5164618,
+          -2.7258954,
+          3.1518428,
+          -0.5669169,
+          -0.2709556,
+          -1.167547
+        ],
+        [
+          -3.1518555,
+          3.5164616,
+          7.2741041,
+          1.1065574,
+          -2.1589789,
+          0.6355746
+        ],
+        [
+          5.0151639,
+          -1.5812327,
+          1.2510285,
+          -0.8292401,
+          -1.5731969,
+          0.9376483
+        ],
+        [
+          -1.692749,
+          -1.498702,
+          1.597208,
+          2.4742043,
+          -2.4584265,
+          0.0383248
+        ],
+        [
+          -1.4987019,
+          -1.6930337,
+          1.597208,
+          -0.8612195,
+          -4.1230469,
+          0.2326567
+        ]
+      ],
+      "max_section_force_abs_error": 0.00021026376389610135,
+      "max_section_moment_abs_error": 5.108963126509991e-05,
+      "original_end_forces_right_hand": [
+        [
+          3.516430881406582,
+          -2.725881619144832,
+          3.1518077024346103,
+          0.5669092268446804,
+          -3.422758562827781,
+          -1.5583220119916543,
+          -3.516430881406582,
+          2.725881619144832,
+          -3.1518077024346103,
+          -0.5669092268446804,
+          -2.8808568420414398,
+          -3.8934412262980103
+        ],
+        [
+          3.1518077024343256,
+          3.516430881406582,
+          -2.7258816191448334,
+          3.8934412262980107,
+          0.5669092268446816,
+          2.880856842041439,
+          -3.1518077024343256,
+          -3.516430881406582,
+          -7.274118380855167,
+          1.1065587737019893,
+          -5.115145988555016,
+          4.152004920771725
+        ],
+        [
+          -5.015068845063238,
+          2.418840882908452,
+          -2.7490048364137065,
+          0.8292374063333384,
+          -0.8241867300112735,
+          -0.5187966925048111,
+          5.015068845063238,
+          5.581159117091548,
+          -5.250995163586294,
+          -0.8292374063333384,
+          -1.6778035971613132,
+          -2.643521541678285
+        ],
+        [
+          1.6929592637638962,
+          -1.4986379636566556,
+          -8.40280286602085,
+          -2.4742013236104126,
+          5.944383394888358,
+          -1.536962767976295,
+          -1.6929592637638962,
+          1.4986379636566556,
+          -1.5971971339791518,
+          -2.5257986763895874,
+          0.8612223371533361,
+          -1.4603131593370162
+        ],
+        [
+          1.4986379636566558,
+          -1.6929592637639739,
+          1.5971971339791544,
+          0.8612223371533377,
+          -5.72019294434789,
+          -1.9256053681909306,
+          -1.4986379636566558,
+          1.6929592637639739,
+          -1.5971971339791544,
+          -0.8612223371533377,
+          2.5257986763895843,
+          -1.4603131593370167
+        ]
+      ],
+      "support_reactions_course": [
+        [
+          -3.1518077024346103,
+          -2.725881619144832,
+          3.516430881406582,
+          -1.5583220119916543,
+          3.4227585628277803,
+          -0.5669092268446804
+        ],
+        [
+          2.7490048364137065,
+          2.418840882908452,
+          -5.015068845063238,
+          -0.5187966925048111,
+          0.8241867300112735,
+          -0.8292374063333384
+        ],
+        [
+          -1.5971971339791537,
+          -1.6929592637639739,
+          1.4986379636566558,
+          -1.9256053681909306,
+          5.72019294434789,
+          -0.8612223371533377
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "tolerances": {
+        "displacement_m": 5e-07,
+        "rotation_rad": 1e-07,
+        "section_force_kN": 0.001,
+        "section_moment_kNm": 0.001
+      }
+    }
+  },
+  "textbook_cli_exit_code": 0,
+  "source_sha256": {
+    "docs/theory/space-frame-derivation.md": "f97269a9b5c21fcc2f55b18d9a8acf4478e0e885d05423d83ea3199f3478071b",
+    "docs/theory/textbook/computational_structural_mechanics_2014.pdf": "66cb9b639b1086f8649dee75bcb8ca9008e6f05adaee22dd7e25f8b9ce731905",
+    "docs/theory/textbook/manifest.json": "81bfcf10373a1acd219e2c0ee97ce96bb9f9dbfb9322b40bad1a1a66eb78c8a1",
+    "examples/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "examples/bent_frame_3d.json": "03412621046818288ef0490276fc28dbffd388dcca4a9ce10fdd4360edcd93f7",
+    "examples/cantilever_3d.json": "fc17c59baf39c4c6c25b3bceaf1ac6689b0ff7845f10b5d7ad6af4c0b5cc8c6a",
+    "examples/cantilever_3d_reference.json": "78bd13d3295e4ddf747643966c0cd36cab4020fd8f7ed14f8006919ea85e6a75",
+    "examples/closed_frame_3d.json": "6e27856de0386a1b6e5e7518d71669827ef3ed7e777a36f37995f1b6a042e7ce",
+    "examples/course_four_bar_reference.json": "09d8af717159592c9aa1ba0fbb5a9487322fa8b074a51f05629ec40c328a3df8",
+    "examples/textbook_iv1_equivalent_nodes.json": "f0acd28f9bf4405b7cd920ad148f8d4e0e03a13b2656a4748f00f405f43225e3",
+    "examples/textbook_iv1_original.json": "9a2c9f4c2a5cc8ce502bac5f33f1b6137f8c7542b2f177c72199f5c4f82f000a",
+    "examples/textbook_iv2_equivalent_nodes.json": "87c07816e83d2d7bf8ba223ecd5d57638a7d016359f2341a45b2d53de73c7f83",
+    "examples/textbook_iv2_original.json": "cfb106c039b3de3a7edd1c2c3240609a45f5d272c01a7da7350d7e051b8afafc",
+    "examples/textbook_reference.py": "fb96de57a6836ea525299b152909fb5264ec1acca595257066b5b0d543437fef",
+    "examples/validate_textbook.py": "c9b36e85c16650be588d813199c396ef035bf04d1e34cdb2e815f061805469a1",
+    "main.py": "ab764f404c5d26ce043cef6b21100397937fdd95a37d9e914c553fabdc535b25",
+    "requirements.txt": "68cf94312d7f697c39f771d8f1fb13b56bd7b22d9ce6053657ea4eeaec5aec32",
+    "src/__init__.py": "f979b32e1082bd1796b2eb83b095e3a68cb75643dcab53c541f27b90f88ca3d2",
+    "src/model/__init__.py": "956c2480267166330989d25ac3cabbbae9f0a508ac1052abc05f5ebeaa2f0d72",
+    "src/model/structural.py": "d1a69db3ba6b1fecf1889b77e0c74b1f084fcc06452beed5a8b9e47cb6d92bba",
+    "src/solver/__init__.py": "ec51980041b59a1940522a481bbaca98e850412de3ba93f372e7ccf9722a9b6c",
+    "src/solver/analysis.py": "abcc3d76db2fadaf53f9ce5a32a124af560665e91b3af95a7420751468abed4f",
+    "src/solver/assembly.py": "1201990ec57d3090ae21c4b700a5a26c0074b4034623f17a29b0cead1cdacde9",
+    "src/solver/equations.py": "5cd53c02e26390606ef1173ff19742ce6be931fcb4495ccfbf85c33da9afe2b7",
+    "src/solver/geometry.py": "ee9d27734e2da5349387776ac0b5f8b329312b0ecaffb4939268e5a6d8aee4f8",
+    "src/solver/recovery.py": "9cb26ed1ce16cb4d2a002a9a6a088429c21320d5a6900515e866b5814dbf4c26",
+    "src/solver/stiffness.py": "f205f61cca7d6c1669346e344f7295f6b8fcbe5c41bd785f76f6753afc9c9216",
+    "src/solver/textbook_axes.py": "dfe8bdd5762fe717b4216da04daf93b063eeb95937096c8039b4c9ee9bd345fa",
+    "tests/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "tests/energy_reference.py": "9ba094df291d22f2eb18654eafb307f1b90351d5fd4de49aa3d61500d94366ae",
+    "tests/helpers.py": "197e74e55d947ed3a0249b9cb8104119683f3d7381fe5a96ecfe75da85629610",
+    "tests/test_analysis.py": "375599db565ed0b0ea92964ad9b55d2a68aa0ea72b3e12e1c335273c39a40477",
+    "tests/test_closed_frame.py": "4a3e987eeaa1b8e0a0d4ed02efd0e78da44e0d3e99e7a87d8853c41be353bb61",
+    "tests/test_equations.py": "fefaa56797cec635b66306e989edf0cfd484b487b6ccfa8270691de7a3248481",
+    "tests/test_geometry_stiffness.py": "dc49690ed49c882765218f85683d72adf6f55f2cc306a815d4f634a03d958ad5",
+    "tests/test_model.py": "1a04562bf4136d3b3cde2a8f982b24004f63dd031a9f4234d2ead8ce938ffb88",
+    "tests/test_textbook.py": "d71a090239f2e5f089bb3d4bafce06f2b853064d41651d3cac4e85c4ccd70bbc"
+  },
+  "remaining": [
+    "Agent and image understanding not implemented; later project phases",
+    "Direct member-load interface outside initial Solver scope; textbook verification uses explicit adapter"
+  ]
+}

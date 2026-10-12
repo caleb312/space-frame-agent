@@ -1,0 +1,314 @@
+{
+  "units": "kN_m",
+  "convention": "course_clockwise",
+  "nodes": [
+    {
+      "id": 1,
+      "coordinates": [
+        2.0,
+        0.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 2,
+      "coordinates": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 3,
+      "coordinates": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 4,
+      "coordinates": [
+        2.0,
+        0.0,
+        2.0
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 5,
+      "coordinates": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 6,
+      "coordinates": [
+        0.0,
+        2.0,
+        2.0
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "id": 1,
+      "E": 210000000.0,
+      "G": 80769000.0
+    }
+  ],
+  "sections": [
+    {
+      "id": 1,
+      "A": 0.007854,
+      "Iy": 4.9087e-06,
+      "Iz": 4.9087e-06,
+      "J": 9.8174e-06
+    }
+  ],
+  "elements": [
+    {
+      "id": 1,
+      "node_i": 1,
+      "node_j": 4,
+      "material_id": 1,
+      "section_id": 1,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 2,
+      "node_i": 4,
+      "node_j": 5,
+      "material_id": 1,
+      "section_id": 1,
+      "local_y": [
+        0.0,
+        -0.0,
+        1.0
+      ]
+    },
+    {
+      "id": 3,
+      "node_i": 2,
+      "node_j": 5,
+      "material_id": 1,
+      "section_id": 1,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 4,
+      "node_i": 5,
+      "node_j": 6,
+      "material_id": 1,
+      "section_id": 1,
+      "local_y": [
+        -0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "id": 5,
+      "node_i": 3,
+      "node_j": 6,
+      "material_id": 1,
+      "section_id": 1,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "loads": [
+    {
+      "node_id": 4,
+      "components": [
+        0.0,
+        0.0,
+        0.0,
+        -5.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "node_id": 5,
+      "components": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "node_id": 4,
+      "components": [
+        0.0,
+        5.0,
+        0.0,
+        0.0,
+        0.0,
+        2.5
+      ]
+    },
+    {
+      "node_id": 5,
+      "components": [
+        0.0,
+        5.0,
+        0.0,
+        0.0,
+        0.0,
+        -2.5
+      ]
+    },
+    {
+      "node_id": 2,
+      "components": [
+        -4.0,
+        0.0,
+        0.0,
+        0.0,
+        1.3333333333333333,
+        0.0
+      ]
+    },
+    {
+      "node_id": 5,
+      "components": [
+        -4.000000000000001,
+        0.0,
+        0.0,
+        0.0,
+        -1.3333333333333335,
+        0.0
+      ]
+    },
+    {
+      "node_id": 2,
+      "components": [
+        0.0,
+        -4.0,
+        0.0,
+        -1.3333333333333333,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "node_id": 5,
+      "components": [
+        0.0,
+        -4.000000000000001,
+        0.0,
+        1.3333333333333335,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "node_id": 5,
+      "components": [
+        5.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.5
+      ]
+    },
+    {
+      "node_id": 6,
+      "components": [
+        5.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -2.5
+      ]
+    },
+    {
+      "node_id": 5,
+      "components": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "node_id": 6,
+      "components": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -5.0,
+        0.0
+      ]
+    }
+  ]
+}

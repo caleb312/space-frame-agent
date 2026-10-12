@@ -1,0 +1,14 @@
+{
+  "material_id": 1,
+  "section_id": 1,
+  "material_type": "isotropic_linear_elastic",
+  "section_type": "solid_circle",
+  "E": 210.0,
+  "E_unit": "GPa",
+  "nu": 0.3,
+  "R": 0.05,
+  "R_unit": "m",
+  "units": "kN_m",
+  "source": "textbook",
+  "evidence": "阎军、杨春秋《计算结构力学》(2014)，例 IV-1，印刷 p186 / PDF p195：E=210GPa、ν=0.3、圆杆半径R=0.05m；按本项目线弹性假定解释为各向同性实心圆杆。"
+}

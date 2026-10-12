@@ -1,0 +1,65 @@
+{
+  "structure_type": "plane_frame",
+  "units": "kN_m",
+  "convention": "course_clockwise",
+  "nodes": [
+    {
+      "id": 10,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 20,
+      "coordinates": [
+        2.0,
+        0.0
+      ],
+      "restrained": [
+        false,
+        false,
+        false
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "id": 1,
+      "E": 200000000.0
+    }
+  ],
+  "sections": [
+    {
+      "id": 1,
+      "A": 0.01,
+      "I": 0.0001
+    }
+  ],
+  "elements": [
+    {
+      "id": 100,
+      "node_i": 10,
+      "node_j": 20,
+      "material_id": 1,
+      "section_id": 1
+    }
+  ],
+  "loads": [
+    {
+      "node_id": 20,
+      "components": [
+        0.0,
+        -10.0,
+        0.0
+      ]
+    }
+  ],
+  "member_loads": [],
+  "section_queries": []
+}

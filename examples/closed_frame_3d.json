@@ -1,0 +1,341 @@
+{
+  "units": "kN_m",
+  "convention": "course_clockwise",
+  "nodes": [
+    {
+      "id": 10,
+      "coordinates": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 20,
+      "coordinates": [
+        3.0,
+        0.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 30,
+      "coordinates": [
+        3.0,
+        2.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 40,
+      "coordinates": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 101,
+      "coordinates": [
+        0.0,
+        0.0,
+        2.5
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 102,
+      "coordinates": [
+        3.0,
+        0.2,
+        2.7
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 103,
+      "coordinates": [
+        2.8,
+        2.0,
+        2.5
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 104,
+      "coordinates": [
+        -0.2,
+        2.2,
+        2.9
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "id": 1,
+      "E": 200000000.0,
+      "G": 80000000.0
+    },
+    {
+      "id": 2,
+      "E": 70000000.0,
+      "G": 26000000.0
+    }
+  ],
+  "sections": [
+    {
+      "id": 1,
+      "A": 0.01,
+      "Iy": 2e-05,
+      "Iz": 4e-05,
+      "J": 1e-05
+    },
+    {
+      "id": 2,
+      "A": 0.008,
+      "Iy": 3e-05,
+      "Iz": 1e-05,
+      "J": 8e-06
+    }
+  ],
+  "elements": [
+    {
+      "id": 1000,
+      "node_i": 10,
+      "node_j": 101,
+      "material_id": 1,
+      "section_id": 1,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 1001,
+      "node_i": 20,
+      "node_j": 102,
+      "material_id": 2,
+      "section_id": 2,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 1002,
+      "node_i": 30,
+      "node_j": 103,
+      "material_id": 1,
+      "section_id": 1,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 1003,
+      "node_i": 40,
+      "node_j": 104,
+      "material_id": 2,
+      "section_id": 2,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 1004,
+      "node_i": 101,
+      "node_j": 102,
+      "material_id": 1,
+      "section_id": 1,
+      "local_y": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "id": 1005,
+      "node_i": 102,
+      "node_j": 103,
+      "material_id": 2,
+      "section_id": 2,
+      "local_y": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "id": 1006,
+      "node_i": 103,
+      "node_j": 104,
+      "material_id": 1,
+      "section_id": 1,
+      "local_y": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "id": 1007,
+      "node_i": 104,
+      "node_j": 101,
+      "material_id": 2,
+      "section_id": 2,
+      "local_y": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "id": 1008,
+      "node_i": 101,
+      "node_j": 103,
+      "material_id": 1,
+      "section_id": 1,
+      "local_y": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "id": 1009,
+      "node_i": 102,
+      "node_j": 104,
+      "material_id": 2,
+      "section_id": 2,
+      "local_y": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    }
+  ],
+  "loads": [
+    {
+      "node_id": 101,
+      "components": [
+        5.0,
+        -3.0,
+        -7.0,
+        4.0,
+        2.0,
+        -1.0
+      ]
+    },
+    {
+      "node_id": 102,
+      "components": [
+        -1.0,
+        2.0,
+        -4.0,
+        -2.0,
+        3.0,
+        1.0
+      ]
+    },
+    {
+      "node_id": 103,
+      "components": [
+        3.0,
+        -2.0,
+        -5.0,
+        1.0,
+        -1.0,
+        2.0
+      ]
+    },
+    {
+      "node_id": 104,
+      "components": [
+        -2.0,
+        1.0,
+        -6.0,
+        3.0,
+        -2.0,
+        4.0
+      ]
+    },
+    {
+      "node_id": 10,
+      "components": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0
+      ]
+    }
+  ]
+}

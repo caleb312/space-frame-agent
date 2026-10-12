@@ -1,0 +1,22 @@
+{
+  "source": "Independent analytical cantilever integration; see examples/README.md",
+  "tip_displacement": [
+    3e-06,
+    -0.0031666666666666666,
+    0.002666666666666667,
+    0.005,
+    0.0015,
+    0.00275
+  ],
+  "base_reaction": [
+    -3.0,
+    5.0,
+    -7.0,
+    -2.0,
+    -10.0,
+    -16.0
+  ],
+  "rtol": 1e-10,
+  "displacement_atol": 1e-12,
+  "force_atol": 1e-08
+}

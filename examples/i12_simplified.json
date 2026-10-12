@@ -1,0 +1,786 @@
+{
+  "units": "kN_m",
+  "convention": "course_clockwise",
+  "nodes": [
+    {
+      "id": 1,
+      "coordinates": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 2,
+      "coordinates": [
+        8.5,
+        0.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 3,
+      "coordinates": [
+        20.9,
+        0.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 4,
+      "coordinates": [
+        0.0,
+        0.0,
+        5.8
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 5,
+      "coordinates": [
+        8.5,
+        0.0,
+        6.6
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 6,
+      "coordinates": [
+        8.5,
+        0.0,
+        13.0
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 7,
+      "coordinates": [
+        20.9,
+        0.0,
+        13.0
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 8,
+      "coordinates": [
+        0.0,
+        15.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 9,
+      "coordinates": [
+        8.5,
+        15.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 10,
+      "coordinates": [
+        20.9,
+        15.0,
+        0.0
+      ],
+      "restrained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 11,
+      "coordinates": [
+        0.0,
+        15.0,
+        5.8
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 12,
+      "coordinates": [
+        8.5,
+        15.0,
+        6.6
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 13,
+      "coordinates": [
+        8.5,
+        15.0,
+        13.0
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 14,
+      "coordinates": [
+        20.9,
+        15.0,
+        13.0
+      ],
+      "restrained": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "id": 1,
+      "E": 210000000.0,
+      "G": 80769230.76923077
+    }
+  ],
+  "sections": [
+    {
+      "id": 1,
+      "A": 0.019426506666666666,
+      "Iy": 0.0002549729,
+      "Iz": 0.0002549729,
+      "J": 12.141566666666666
+    },
+    {
+      "id": 2,
+      "A": 0.0812551,
+      "Iy": 0.0020033585,
+      "Iz": 0.0020033585,
+      "J": 12.141566666666666
+    },
+    {
+      "id": 3,
+      "A": 0.03946009166666666,
+      "Iy": 0.0013841385999999998,
+      "Iz": 0.0013841385999999998,
+      "J": 12.141566666666666
+    },
+    {
+      "id": 4,
+      "A": 0.09292968333333333,
+      "Iy": 0.0051723074,
+      "Iz": 0.0051723074,
+      "J": 12.141566666666666
+    }
+  ],
+  "elements": [
+    {
+      "id": 1,
+      "node_i": 1,
+      "node_j": 4,
+      "material_id": 1,
+      "section_id": 1,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 2,
+      "node_i": 4,
+      "node_j": 5,
+      "material_id": 1,
+      "section_id": 2,
+      "local_y": [
+        -0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 3,
+      "node_i": 2,
+      "node_j": 5,
+      "material_id": 1,
+      "section_id": 3,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 4,
+      "node_i": 5,
+      "node_j": 6,
+      "material_id": 1,
+      "section_id": 3,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 5,
+      "node_i": 6,
+      "node_j": 7,
+      "material_id": 1,
+      "section_id": 4,
+      "local_y": [
+        -0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 6,
+      "node_i": 3,
+      "node_j": 7,
+      "material_id": 1,
+      "section_id": 3,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 7,
+      "node_i": 4,
+      "node_j": 11,
+      "material_id": 1,
+      "section_id": 2,
+      "local_y": [
+        -1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": 8,
+      "node_i": 5,
+      "node_j": 12,
+      "material_id": 1,
+      "section_id": 2,
+      "local_y": [
+        -1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": 9,
+      "node_i": 6,
+      "node_j": 13,
+      "material_id": 1,
+      "section_id": 4,
+      "local_y": [
+        -1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": 10,
+      "node_i": 7,
+      "node_j": 14,
+      "material_id": 1,
+      "section_id": 4,
+      "local_y": [
+        -1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": 11,
+      "node_i": 8,
+      "node_j": 11,
+      "material_id": 1,
+      "section_id": 1,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 12,
+      "node_i": 11,
+      "node_j": 12,
+      "material_id": 1,
+      "section_id": 2,
+      "local_y": [
+        -0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 13,
+      "node_i": 9,
+      "node_j": 12,
+      "material_id": 1,
+      "section_id": 3,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 14,
+      "node_i": 12,
+      "node_j": 13,
+      "material_id": 1,
+      "section_id": 3,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 15,
+      "node_i": 13,
+      "node_j": 14,
+      "material_id": 1,
+      "section_id": 4,
+      "local_y": [
+        -0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "id": 16,
+      "node_i": 10,
+      "node_j": 14,
+      "material_id": 1,
+      "section_id": 3,
+      "local_y": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "loads": [],
+  "member_loads": [
+    {
+      "element_id": 4,
+      "kind": "point_force",
+      "coordinate_system": "global",
+      "components": [
+        0.0,
+        0.0,
+        -117.6798
+      ],
+      "position": 3.0,
+      "interval": null
+    },
+    {
+      "element_id": 4,
+      "kind": "point_moment",
+      "coordinate_system": "global",
+      "components": [
+        0.0,
+        -70.60788,
+        0.0
+      ],
+      "position": 3.0,
+      "interval": null
+    },
+    {
+      "element_id": 6,
+      "kind": "point_force",
+      "coordinate_system": "global",
+      "components": [
+        0.0,
+        0.0,
+        -78.4532
+      ],
+      "position": 9.6,
+      "interval": null
+    },
+    {
+      "element_id": 6,
+      "kind": "point_moment",
+      "coordinate_system": "global",
+      "components": [
+        0.0,
+        47.07192,
+        0.0
+      ],
+      "position": 9.6,
+      "interval": null
+    },
+    {
+      "element_id": 14,
+      "kind": "point_force",
+      "coordinate_system": "global",
+      "components": [
+        0.0,
+        0.0,
+        -117.6798
+      ],
+      "position": 3.0,
+      "interval": null
+    },
+    {
+      "element_id": 14,
+      "kind": "point_moment",
+      "coordinate_system": "global",
+      "components": [
+        0.0,
+        -70.60788,
+        0.0
+      ],
+      "position": 3.0,
+      "interval": null
+    },
+    {
+      "element_id": 16,
+      "kind": "point_force",
+      "coordinate_system": "global",
+      "components": [
+        0.0,
+        0.0,
+        -78.4532
+      ],
+      "position": 9.6,
+      "interval": null
+    },
+    {
+      "element_id": 16,
+      "kind": "point_moment",
+      "coordinate_system": "global",
+      "components": [
+        0.0,
+        47.07192,
+        0.0
+      ],
+      "position": 9.6,
+      "interval": null
+    }
+  ],
+  "section_queries": [
+    {
+      "id": 1,
+      "element_id": 1,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 2,
+      "element_id": 1,
+      "location": "position",
+      "position": 5.8,
+      "side": "left"
+    },
+    {
+      "id": 3,
+      "element_id": 2,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 4,
+      "element_id": 2,
+      "location": "position",
+      "position": 8.537564055396597,
+      "side": "left"
+    },
+    {
+      "id": 5,
+      "element_id": 3,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 6,
+      "element_id": 3,
+      "location": "position",
+      "position": 6.6,
+      "side": "left"
+    },
+    {
+      "id": 7,
+      "element_id": 4,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 8,
+      "element_id": 4,
+      "location": "position",
+      "position": 6.4,
+      "side": "left"
+    },
+    {
+      "id": 9,
+      "element_id": 5,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 10,
+      "element_id": 5,
+      "location": "position",
+      "position": 12.399999999999999,
+      "side": "left"
+    },
+    {
+      "id": 11,
+      "element_id": 6,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 12,
+      "element_id": 6,
+      "location": "position",
+      "position": 13.0,
+      "side": "left"
+    },
+    {
+      "id": 13,
+      "element_id": 7,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 14,
+      "element_id": 7,
+      "location": "position",
+      "position": 15.0,
+      "side": "left"
+    },
+    {
+      "id": 15,
+      "element_id": 8,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 16,
+      "element_id": 8,
+      "location": "position",
+      "position": 15.0,
+      "side": "left"
+    },
+    {
+      "id": 17,
+      "element_id": 9,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 18,
+      "element_id": 9,
+      "location": "position",
+      "position": 15.0,
+      "side": "left"
+    },
+    {
+      "id": 19,
+      "element_id": 10,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 20,
+      "element_id": 10,
+      "location": "position",
+      "position": 15.0,
+      "side": "left"
+    },
+    {
+      "id": 21,
+      "element_id": 11,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 22,
+      "element_id": 11,
+      "location": "position",
+      "position": 5.8,
+      "side": "left"
+    },
+    {
+      "id": 23,
+      "element_id": 12,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 24,
+      "element_id": 12,
+      "location": "position",
+      "position": 8.537564055396597,
+      "side": "left"
+    },
+    {
+      "id": 25,
+      "element_id": 13,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 26,
+      "element_id": 13,
+      "location": "position",
+      "position": 6.6,
+      "side": "left"
+    },
+    {
+      "id": 27,
+      "element_id": 14,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 28,
+      "element_id": 14,
+      "location": "position",
+      "position": 6.4,
+      "side": "left"
+    },
+    {
+      "id": 29,
+      "element_id": 15,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 30,
+      "element_id": 15,
+      "location": "position",
+      "position": 12.399999999999999,
+      "side": "left"
+    },
+    {
+      "id": 31,
+      "element_id": 16,
+      "location": "position",
+      "position": 0.0,
+      "side": "right"
+    },
+    {
+      "id": 32,
+      "element_id": 16,
+      "location": "position",
+      "position": 13.0,
+      "side": "left"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.local/
+
+# JavaScript dependencies and generated builds
+node_modules/
+dist/
+build/
+
+# Editor and operating system files
+.idea/
+.DS_Store
+Thumbs.db
+
+# Generated analysis results; keep the directory
+/results/*
+!/results/.gitkeep
+
+# Private/reference material and local publication output
+/work/
+/data/*
+!/data/.gitkeep
+/release/
+/docs/theory/course/
+/docs/theory/textbook/
+/docs/theory/example_i12/*.png
+/examples/textbook_ii2_question.png
+*.pdf

@@ -2,10 +2,10 @@
 
 ## 启动
 
-在项目目录双击 `启动网页.cmd`。首次运行自动准备 `.venv` 和依赖，以后直接启动；正常安装的 Python 优先使用，不要求安装 Codex。详情见 [一键启动说明](../启动说明.md)。也可在已安装依赖的环境中运行：
+在项目目录双击 `启动网页.cmd`。首次运行自动准备 `.venv` 和依赖，以后直接启动。详情见 [一键启动说明](../启动说明.md)。也可在已安装依赖的环境中运行：
 
 ```powershell
-cd 'C:\Users\Administrator\Documents\Codex\2026-10-07\new-chat\outputs\space-frame-agent'
+cd 'D:\space-frame-agent' # 替换为自己的项目目录
 python web_main.py --open
 ```
 

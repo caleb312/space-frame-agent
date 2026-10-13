@@ -48,8 +48,8 @@
 
 Python 的数据记录仅用于传递参数和结果，计算过程仍由独立函数执行。测试使用标准库 unittest；这不改变 Solver 的课程组织方式。
 
-## 教材附录对照
+## 参考资料附录对照
 
-已对照 2014 年教材 p180 图IV-1 及 p189～201 空间程序：KGRead 对应 JSON 数字化输入，KGLCosSin 对应 ch，KGIOJO 对应 i0j0，KGBuildRD/KGBuildUnitStif 对应 local_stiffness/stif，KGBuildTotalStif 对应 dor，KGCholeSky 对应 ldlt/slveq，KGDispRodForce 的位移项对应 doh。附录的旋转正号及局部轴基准通过显式适配转换，详见 textbook-audit.md。
+已对照 计算规则说明 p180 图IV-1 及 p189～201 空间程序：KGRead 对应 JSON 数字化输入，KGLCosSin 对应 ch，KGIOJO 对应 i0j0，KGBuildRD/KGBuildUnitStif 对应 local_stiffness/stif，KGBuildTotalStif 对应 dor，KGCholeSky 对应 ldlt/slveq，KGDispRodForce 的位移项对应 doh。附录的旋转正号及局部轴基准通过显式适配转换，详见 textbook-audit.md。
 
-教材跨内荷载和任意截面处理在原题验证适配器中显式使用；没有加入第一版 StructuralModel 的通用载荷接口。教材的 C 源程序数组分配及文本偏移读取不照抄到 Python，保留计算步骤与数组含义。
+参考资料跨内荷载和任意截面处理在原题验证适配器中显式使用；没有加入第一版 StructuralModel 的通用载荷接口。参考资料的 C 源程序数组分配及文本偏移读取不照抄到 Python，保留计算步骤与数组含义。

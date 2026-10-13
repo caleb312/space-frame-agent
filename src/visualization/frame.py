@@ -176,7 +176,7 @@ def build_frame_payload(data,result=None,title='空间刚架 · 三维分析'):
             'glyphs':glyphs,'loads':loads,'sections':sections,'fields':fields,'span':span,
             'force_unit':unit,'default_scale':amplification,'max_node_displacement_m':max_node,
             'max_sample_displacement_m':max_curve,'csv':exports,
-            'notes':'节点/支座用全局坐标；杆端及截面内力用局部坐标。显示转角/力矩为附录右手，截面为教材截面正号。'}
+            'notes':'节点/支座用全局坐标；杆端及截面内力用局部坐标。显示转角/力矩为附录右手，截面为局部截面正号。'}
 
 
 def write_frame_html(model,result,path,title='空间刚架 · 三维分析'):

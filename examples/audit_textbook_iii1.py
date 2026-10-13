@@ -6,7 +6,7 @@ import numpy as np
 from src.solver import solve_structure
 
 ROOT=Path(__file__).resolve().parents[1]
-SOURCE=dict(book='阎军、杨春秋《计算结构力学》2014',example='III-1',
+SOURCE=dict(book='项目计算规则',example='III-1',
             printed_pages=[168,169],pdf_pages=[177,178])
 BOOK_U=np.array([.0000011,-.0000027,.0000204]) # 原印刷值保留，course_clockwise
 BOOK_SECTIONS=np.array([[3.2485752,-5.3790646,2.3541472],
@@ -15,7 +15,7 @@ BOOK_SECTIONS=np.array([[3.2485752,-5.3790646,2.3541472],
 
 
 def original_model():
-    # ②杆按教材3→4；真实均布力仍全局-y。type6的VOL=-5是书中荷载类型输入，
+    # ②杆按参考资料3→4；真实均布力仍全局-y。type6的VOL=-5是书中荷载类型输入，
     # 不等于节点课程Mz=-5。p176固定端反作用把端点顺时针力偶传为节点Mz=+5。
     return dict(structure_type='plane_frame',units='kN_m',convention='course_clockwise',
         nodes=[dict(id=i,coordinates=p,restrained=fix) for i,p,fix in [
@@ -39,7 +39,7 @@ def free_equations(A=.1,I=.000005):
 
 
 def ldlt_float32(A,b):
-    """按教材p176-177的LDLT/回代顺序在float32计算，检查浮点量级。"""
+    """按参考资料p176-177的LDLT/回代顺序在float32计算，检查浮点量级。"""
     A=np.asarray(A,np.float32);b=np.asarray(b,np.float32);n=len(b)
     L=np.eye(n,dtype=np.float32);D=np.zeros(n,np.float32);y=np.zeros(n,np.float32);x=np.zeros(n,np.float32)
     D[0]=A[0,0]
@@ -105,8 +105,8 @@ def main():
     report=audit()
     (ROOT/'results/textbook_iii1_audit.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     lines=['# 附录III.8例III-1核对','',
-        '教材：阎军、杨春秋2014《计算结构力学》，印刷p168–169 / PDFp177–178。',
-        '原题和答案均按教材原页转录，不覆盖原印刷值。当前工作台条件与结果未被修改。','',
+        '参考资料：项目计算规则，印刷p168–169 / PDFp177–178。',
+        '原题和答案均按参考资料原页转录，不覆盖原印刷值。当前工作台条件与结果未被修改。','',
         '## 结论','',report['conclusion'],
         '不是当前Solver浮点舍入造成的差异。原题独立节点4方程与Solver一致；float32复算误差不足以解释原答案差异。','',
         '| 参数 | 例III-1题面/输入 | 可复现答案的参数（与下一例III-2相同） |',
@@ -117,14 +117,14 @@ def main():
     for i,key in enumerate(['ux / m','uy / m','rz / rad']):
         lines.append(f'| {key} | {BOOK_U[i]:.7f} | {report["computed_displacement_course"][i]:.12g} | {report["alternate_displacement_course"][i]:.12g} |')
     lines+=['','工作台显示转角为右手正号，因此原题rz显示值为上述课程rz的负值。','',
-        '## 跨中截面（教材局部轴、教材截面正号）','',
-        '②杆按教材i=3,j=4统一方向；工作台原i=4,j=3的跨中弯矩需反号比较。N/Q并非简单全部反号。',
-        '①、③的集中力正落截面，采用right极限，与教材程序严格小于判断所对应的切面一致。','',
+        '## 跨中截面（参考资料局部轴、局部截面正号）','',
+        '②杆按参考资料i=3,j=4统一方向；工作台原i=4,j=3的跨中弯矩需反号比较。N/Q并非简单全部反号。',
+        '①、③的集中力正落截面，采用right极限，与参考资料程序严格小于判断所对应的切面一致。','',
         '| 截面 | 项目 | 原印刷 | 原题计算 | 仅换截面参数 |','| --- | --- | --- | --- | --- |']
     for k in range(3):
         for j,key in enumerate(['N / kN','Q / kN','M / kN·m']):
             lines.append(f'| {k+1} | {key} | {BOOK_SECTIONS[k,j]:.7f} | {report["computed_sections_N_Q_M"][k][j]:.10g} | {report["alternate_sections_N_Q_M"][k][j]:.10g} |')
-    lines+=['','仅换截面参数后，节点三项位移按教材7位小数完全一致，9项内力均在float32一个ULP加印刷半末位容差内。',
+    lines+=['','仅换截面参数后，节点三项位移按参考资料7位小数完全一致，9项内力均在float32一个ULP加印刷半末位容差内。',
         f'最大力差{report["alternate_max_force_error_kN"]:.6g} kN；最大弯矩差{report["alternate_max_moment_error_kNm"]:.6g} kN·m。',
         '这说明答案数值对应另一组截面参数；无法仅凭扫描本确定错在题面参数还是答案编辑过程，不声称出版社正式勘误。',
         '此前Agent把顺时针误填Mz=-5是另外一个输入错误，已修正；本核对全部使用正确的Mz=+5。',

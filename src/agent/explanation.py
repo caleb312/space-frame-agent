@@ -102,7 +102,7 @@ def result_table(result):
     units = display['units']
     lines = ['# 空间刚架计算结果', '',
              '以下数值由 Python Solver 计算；结果表由程序直接生成。',
-             '节点转角及反力矩已由程序转换为教材附录的右手正号；原始 JSON 保持课件顺时针约定。',
+             '节点转角及反力矩已由程序转换为右手正号；原始 JSON 保持项目顺时针约定。',
              f"模型哈希：{result['model_hash']}", '', '## 节点位移', '',
              f"平动单位 {units['displacement']}，转角单位 {units['rotation']}。", '',
              '| 节点 | ux | uy | uz | rx | ry | rz |', '| --- | --- | --- | --- | --- | --- | --- |']
@@ -116,7 +116,7 @@ def result_table(result):
             lines.append('| '+str(node['id'])+' | '+' | '.join(number(v) for v in node['reaction'])+' |')
     if display['sections']:
         lines.extend(['', '## 指定截面内力', '',
-                      f"采用教材截面正号；N/Qy/Qz 单位 {units['force']}，T/My/Mz 单位 {units['moment']}。", '',
+                      f"采用局部截面正号；N/Qy/Qz 单位 {units['force']}，T/My/Mz 单位 {units['moment']}。", '',
                       '| 截面 | 构件 | 距 i 端 / m | 侧 | N | Qy | Qz | T | My | Mz |',
                       '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |'])
         for section in display['sections']:
@@ -124,7 +124,7 @@ def result_table(result):
                          +number(section['position'])+' | '+section['side']+' | '
                          +' | '.join(number(v) for v in section['forces'])+' |')
     lines.extend(['', '## 杆端内力', '',
-                  '分量沿各杆局部坐标轴；杆端力矩采用本结果表的右手约定，不能与教材截面正号直接混用。', '',
+                  '分量沿各杆局部坐标轴；杆端力矩采用本结果表的右手约定，不能与局部截面正号直接混用。', '',
                   '| 构件 | 端 | Fx | Fy | Fz | Mx | My | Mz |',
                   '| --- | --- | --- | --- | --- | --- | --- | --- |'])
     for element in display['elements']:
@@ -172,7 +172,7 @@ def quick_result_summary(result):
     if axial:
         state = '受拉' if axial['value'] > 0 else '受压' if axial['value'] < 0 else '轴力为零'
         lines.append(f"已请求截面中绝对值最大的轴力在构件{axial['element_id']}、截面{axial['section_id']}："
-                     f"N={axial['value']:.6g} {axial['unit']}，按教材截面正号{state}；不代表全杆最大内力。")
+                     f"N={axial['value']:.6g} {axial['unit']}，按局部截面正号{state}；不代表全杆最大内力。")
     lines.append('完整数值见结果表和三维图；节点量为全局分量，杆端及截面内力为局部分量。')
     return '程序结果概要（直接读取 Solver 结果，无需等待 API）：\n\n'+'\n'.join(lines)
 
@@ -201,7 +201,7 @@ def native_result_table(display):
     if display['sections']:
         indices=(0,1,5) if frame else (0,)
         names=['N','Qy','Mz'] if frame else ['N']
-        lines+=['','## 指定截面内力（教材截面正号）','',
+        lines+=['','## 指定截面内力（局部截面正号）','',
                 '| 截面 | 构件 | 距i端 / m | 侧 | '+' | '.join(names)+' |',
                 '| --- | --- | --- | --- | '+' | '.join(['---']*len(names))+' |']
         for q in display['sections']:lines.append('| '+str(q['id'])+' | '+str(q['element_id'])+' | '+number(q['position'])+' | '+q['side']+' | '+' | '.join(number(q['forces'][i]) for i in indices)+' |')
@@ -215,9 +215,9 @@ def explain_result(client, result, question=None, concise=False):
     messages = [
         {'role':'system', 'content': '你是结构力学课程助手。结构计算已由确定性 Python 程序完成。'
          '只用给定结果简洁解释节点位移、支座反力和指定截面内力，不自行计算、换单位或补数字。'
-         '给定节点转角、节点/杆端力矩已经由程序转换为教材附录右手正号；截面保持 textbook_section 正号。'
+         '给定节点转角、节点/杆端力矩已经由程序转换为右手正号；截面保持 textbook_section 正号。'
          '节点位移、转角和支座反力用全局坐标；杆端内力与截面内力均用各杆局部坐标。'
-         '绝不把杆端力矩说成全局分量；全局/局部坐标与右手/教材正号是不同的概念。'
+         '绝不把杆端力矩说成全局分量；全局/局部坐标与右手/截面正号是不同的概念。'
          '极值或分量大小比较只引用 program_statistics 中的程序统计；不自行排序、计算绝对值或比值。'
          '位移与转角不能直接比较，力与力矩不能直接比较；不要写 rz 与 uz 谁更明显。'
          'N 为负只能解释该截面受压，不能仅凭 N 数值断言该处或整体以压力为主、应力最大或存在屈曲。'

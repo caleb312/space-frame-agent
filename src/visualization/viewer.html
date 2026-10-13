@@ -37,7 +37,7 @@ function detail(){
  }else if(tab==='nodes'){
   const n=nodeMap.get(nodeId);content='<h2>节点数值</h2>'+choose(D.nodes,nodeId,'节点 ')+table(['X','Y','Z'],n.coordinates,'m')+'<h3>约束</h3><p class="small">'+activeDofs.map(i=>['ux','uy','uz','rx','ry','rz'][i]+': '+(n.restrained[i]?'固定':'自由')).join(' · ')+'</p>';
   if(solved)content+='<h3>位移 / 转角</h3>'+table(selectValues(['ux / m','uy / m','uz / m','rx / rad','ry / rad','rz / rad'],activeDofs),selectValues(n.displacement,activeDofs))+'<h3>支座反力</h3>'+table(selectValues(['Rx / '+D.force_unit,'Ry / '+D.force_unit,'Rz / '+D.force_unit,'Mx / '+D.force_unit+'·m','My / '+D.force_unit+'·m','Mz / '+D.force_unit+'·m'],activeDofs),selectValues(n.reaction,activeDofs))+'<button class="download" data-csv="nodes">导出节点位移 CSV</button><button class="download" data-csv="reactions">导出支座反力 CSV</button>';
-  content+='<div class="note">平动、转角及反力均沿全局坐标。转角与力矩显示为教材附录右手正号。</div>';
+  content+='<div class="note">平动、转角及反力均沿全局坐标。转角与力矩显示为右手正号。</div>';
  }else if(tab==='ends'){
   const e=D.elements.find(e=>e.id===elementId);content='<h2>'+(isTruss?'桁架轴力':'局部杆端内力')+'</h2>'+choose(D.elements,elementId,'构件 ')+'<p class="small">i端：节点'+e.node_i+'，j端：节点'+e.node_j+'</p>';
   if(solved){if(isTruss)content+=table(['N / '+D.force_unit],[e.axial_force]);else for(const side of ['i','j'])content+='<h3>'+side+' 端</h3>'+table(selectValues(['Fx / '+D.force_unit,'Fy / '+D.force_unit,'Fz / '+D.force_unit,'Mx / '+D.force_unit+'·m','My / '+D.force_unit+'·m','Mz / '+D.force_unit+'·m'],endIndices),selectValues(e['end_'+side],endIndices));}
@@ -46,7 +46,7 @@ function detail(){
  }else if(tab==='sections'){
   content='<h2>指定截面内力</h2>';
   if(!D.sections.length)content+='<p>没有截面请求。</p>';else{const s=D.sections.find(s=>s.id===sectionId);content+=choose(D.sections,sectionId,'截面 ')+'<p class="small">构件 '+s.element_id+' · 距i端 '+fmt(s.position)+' m · '+(s.side==='right'?'右':'左')+'侧极限</p>';if(solved)content+=table(selectValues(['N / '+D.force_unit,'Qy / '+D.force_unit,'Qz / '+D.force_unit,'T / '+D.force_unit+'·m','My / '+D.force_unit+'·m','Mz / '+D.force_unit+'·m'],sectionIndices),selectValues(s.forces,sectionIndices))+'<button class="download" data-csv="sections">导出截面 CSV</button>';else content+='<div class="note">已登记查询位置，模型尚未求解，不显示内力数值。</div>';}
-  content+='<div class="note">采用教材截面正号。集中荷载位置可能出现左右值跳跃；色带采样保留这些跳跃。</div>';
+  content+='<div class="note">采用局部截面正号。集中荷载位置可能出现左右值跳跃；色带采样保留这些跳跃。</div>';
  }else if(tab==='loads'){
   content='<h2>原始荷载</h2>'+D.loads.map(l=>'<h3>'+escapeText(l.label)+'</h3><p class="small">'+escapeText(l.description)+(l.interval?' · 区间 ['+l.interval.join(',')+'] m':'')+'</p>'+table(['全局 X','全局 Y','全局 Z'],l.global_components,l.unit)).join('')+'<div class="note">图中的箭头只示方向。力矩为全局右手分量；均布力按单位实际杆长计。未将杆上荷载人为移动到节点。</div>';
  }else{

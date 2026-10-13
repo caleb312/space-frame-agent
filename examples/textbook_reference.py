@@ -1,4 +1,4 @@
-"""教材原题验证的转换工具，非 StructuralModel 的跨内荷载功能。
+"""参考资料原题验证的转换工具，非 StructuralModel 的跨内荷载功能。
 
 附录IV的 RH 分量先转换为项目课件分量；跨内荷载按虚功
 转换为节点荷载，保留原始信息，不能把转换后的模型说成原题只有节点荷载。
@@ -18,7 +18,7 @@ def textbook_nodal_load(length, load):
     """返回附录IV右手旋转分量下的局部等效节点力；只转换登记的类型。"""
     kind, plane, q, position = load['kind'], load['plane'], load['value'], load['position']
     if plane not in (0,1) or not 0 <= position <= length+1e-10:
-        raise ValueError('教材荷载的平面或作用位置无效')
+        raise ValueError('参考资料荷载的平面或作用位置无效')
     p = np.zeros(12)
     if kind in (1,2):
         if kind == 1:
@@ -38,15 +38,15 @@ def textbook_nodal_load(length, load):
     elif kind == 6:
         # 此处只接收已登记原题的端点集中弯矩，不扩充第一版 Solver。
         if abs(position-length) > 1e-10:
-            raise ValueError('教材验证适配器只登记末端集中弯矩')
+            raise ValueError('参考资料验证适配器只登记末端集中弯矩')
         p[10+plane] = q*(1 if plane == 1 else -1)
     else:
-        raise ValueError('此教材验证荷载类型尚未登记')
+        raise ValueError('此参考资料验证荷载类型尚未登记')
     return p
 
 
 def equivalent_model(raw):
-    """教材数组 → 明确转换后的第一版节点荷载模型。"""
+    """参考资料数组 → 明确转换后的第一版节点荷载模型。"""
     data = {'units':'kN_m','convention':'course_clockwise',
             'nodes':[{'id':i+1,'coordinates':point,'restrained':[i<raw['fixed_nodes']]*6}
                      for i,point in enumerate(raw['coordinates'])],
@@ -92,7 +92,7 @@ def original_end_forces_right_hand(result, equivalent):
 def section_forces_in_appendix_convention(raw, result, equivalent):
     """由原题真实左端力及截面左侧原荷载静力恢复指定截面。
 
-    输出教材表中的 N,Qy,Qz,T,My,Mz；并非两端广义力向量。
+    输出参考资料表中的 N,Qy,Qz,T,My,Mz；并非两端广义力向量。
     对集中力所在截面采用荷载右侧，即计入该点荷载。
     """
     end_forces = original_end_forces_right_hand(result,equivalent)

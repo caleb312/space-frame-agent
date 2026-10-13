@@ -77,10 +77,10 @@ def calculate_material_section(parameters):
         if inputs.units == 'kN_m':
             E /= 1000.0
         R = inputs.R * LENGTH_TO_M[inputs.R_unit]
-        # 教材例 IV-1，印刷 p186 / PDF p195：G=E/[2(1+ν)]。
+        # 参考资料例 IV-1，印刷 p186 / PDF p195：G=E/[2(1+ν)]。
         G = E / (2.0 * (1.0 + inputs.nu))
         # 同页：A=πR²，Jy=Jz=πD⁴/64，Jp=Jy+Jz；用 D=2R 写成半径形式。
-        # Solver 名称 Iy/Iz/J 对应此圆截面的教材 Jy/Jz/Jp；一般截面不可套用。
+        # Solver 名称 Iy/Iz/J 对应此圆截面的参考资料 Jy/Jz/Jp；一般截面不可套用。
         A = math.pi * R**2
         Iy = math.pi * R**4 / 4.0
         Iz = Iy
@@ -105,11 +105,11 @@ def calculate_material_section(parameters):
             'assumptions': ['各向同性线弹性材料', '实心圆截面', '截面惯性矩取形心轴',
                             'J 为 Saint-Venant 扭转常数，实心圆截面下等于极面积惯性矩'],
             'theory': 'docs/theory/material-section.md',
-            'precision': 'Python float 全精度计算；教材表值的舍入仅用于参考比较，不回写求解参数'}
+            'precision': 'Python float 全精度计算；参考资料表值的舍入仅用于参考比较，不回写求解参数'}
 
 
 def format_parameters(result):
-    """教材常用参数符号与单位；显示格式不改变原始计算值。"""
+    """参考资料常用参数符号与单位；显示格式不改变原始计算值。"""
     values = {key: value for group in ('material', 'section') for key, value in result[group].items() if key != 'id'}
     if result['formula_version']=='truss_axial_rigidity_v1':
         return '\n'.join(f"{key} = {values[key]:.10g} {result['units'][key]}" for key in ('E','A'))+'\n仅为保持EA的归一化参数，不代表实际材性/截面。'

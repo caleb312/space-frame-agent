@@ -1,4 +1,4 @@
-"""中期演示的自定义简单模型，参考解来自解析平衡/兼容，不冒充教材原题。"""
+"""中期演示的自定义简单模型，参考解来自解析平衡/兼容，不冒充参考资料原题。"""
 import json
 from pathlib import Path
 import numpy as np
@@ -43,7 +43,7 @@ def conditions_markdown(model):
     name={'plane_truss':'简单平面桁架（三杆全铰接）','plane_frame':'简单平面刚架（悬臂）',
           'space_truss':'简单空间桁架（三杆全铰接）'}[kind]
     dofs=['ux','uy','rz'] if kind=='plane_frame' else ['ux','uy','uz'][:len(model['nodes'][0]['coordinates'])]
-    lines=['# '+name,'','这是自定义解析验证算例，不是教材原题。',
+    lines=['# '+name,'','这是自定义解析验证算例，不是参考资料原题。',
         '结构类型：'+kind+'。采用线弹性直接刚度法，单位kN、m，坐标方向由正坐标定义。',
         '顺时针转角/力矩采用course_clockwise。',
         '各杆材料E=200000000 kN/m²，截面A=0.01 m²。']
@@ -88,7 +88,7 @@ def recognition(raw):
         loads.append({'label':f'L{i+1}','kind':'node_force','target_id':load['node_id'],'components':components,
             'units':'kN_m','position':None,'interval':None,'coordinate_system':'global','source':'user','evidence':'演示节点力','raw_description':'给定节点集中力'})
     return {'structure_type':raw['structure_type'],'classification_evidence':'演示题明确给定结构类型及铰接/刚接假定',
-        'observations':['这是自定义简单演示算例，理论按2014教材；不是原书编号算例'],
+        'observations':['这是自定义简单演示算例，理论按项目计算规则；不是原书编号算例'],
         'facts':facts,'loads':loads,'loads_complete':True,'load_inventory_evidence':'已登记全部给定荷载','questions':[],
         'requested_results':['displacements','reactions','end_forces']}
 

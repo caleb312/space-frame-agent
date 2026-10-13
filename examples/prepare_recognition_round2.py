@@ -1,6 +1,6 @@
 """生成无答案识读题；参考由静力/协调/单位荷载法独立计算。
 
-自定义验证题，线弹性假定沿用2014教材项目约定；不是教材编号题。
+自定义验证题，线弹性假定沿用项目计算规则项目约定；不是参考资料编号题。
 不改求解器，也不调用模型API。
 """
 import json
@@ -87,7 +87,7 @@ def markdown(raw, name):
         'plane_frame':'两根杆在节点20刚接，考虑轴向及平面内弯曲变形；结构与荷载均在全局x-y平面。',
         'space_truss':'全部杆端为理想球铰，杆件仅承受轴力；采用三维全局x、y、z坐标。'}[kind]
     dofs=['ux','uy','rz'] if kind=='plane_frame' else ['ux','uy','uz'][:len(raw['nodes'][0]['coordinates'])]
-    lines=[f'# 识读验证题 {name}','', '自定义验证题，不是教材原题。请根据结构假定判断类型，再建立模型，等待用户确认后计算。',
+    lines=[f'# 识读验证题 {name}','', '自定义验证题，不是参考资料原题。请根据结构假定判断类型，再建立模型，等待用户确认后计算。',
         '',hypotheses,'长度m，力kN，力矩kN·m。忽略自重、温度、支座沉降及剪切变形。',
         f'各杆 E={E:g} kN/m²，A={A:g} m²。']
     if kind=='plane_frame':lines.append(f'各杆平面内弯曲惯性矩 I={I:g} m⁴。图上力矩采用右手正号；提交求解器时转换为course_clockwise。')
@@ -237,7 +237,7 @@ def main():
     (ANSWERS/'verification.json').write_text(json.dumps(index,ensure_ascii=False,indent=2),encoding='utf-8')
     (QUESTIONS/'README.md').write_text('''# 第二组识读验证题
 
-三个自定义题目，不是教材原题。图片与同名MD给出相同条件，均不含答案。
+三个自定义题目，不是参考资料原题。图片与同名MD给出相同条件，均不含答案。
 题目不直接给出求解器类型名，需要Agent从理想铰接/刚接与坐标维度判断。
 
 建议先测试A，再B，再C。每题新建分析，使用“建模与纠正”。
@@ -247,7 +247,7 @@ def main():
 
 不要同时上传MD或参考答案。若图片读取失败，保留截图，再新建分析导入同名MD对照，区分识图问题和建模/调用问题。
 平面图使用全局x-y坐标；B图上的力矩为右手正号，提交时必须转为项目course_clockwise。
-只通过这三题不能视为复杂教材识图验收。
+只通过这三题不能视为复杂参考资料识图验收。
 ''',encoding='utf-8')
     print(json.dumps(index,ensure_ascii=False,indent=2))
 

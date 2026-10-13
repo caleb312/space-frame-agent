@@ -1,4 +1,4 @@
-"""参数工具验证：解析值、教材舍入表值、单位与 Agent 注入边界。"""
+"""参数工具验证：解析值、参考资料舍入表值、单位与 Agent 注入边界。"""
 from copy import deepcopy
 import json
 import math
@@ -56,7 +56,7 @@ class ParameterTests(unittest.TestCase):
         reference = json.loads((ROOT/'examples/textbook_iv1_original.json').read_text(encoding='utf-8'))
         result = calculate_material_section(inputs())
         # p186～187 参数表有舍入；此比较不把表值当全精度真值。
-        # 归档参考的 J 由教材 Jp=Jy+Jz 及表中已舍入 Iy/Iz 得到，容差为两项之和。
+        # 归档参考的 J 由参考资料 Jp=Jy+Jz 及表中已舍入 Iy/Iz 得到，容差为两项之和。
         tolerances = {'E': 1e-8, 'G': 500.0, 'A': 5e-7, 'Iy': 5e-11, 'Iz': 5e-11, 'J': 1e-10}
         for group in ('material', 'section'):
             for key, value in result[group].items():

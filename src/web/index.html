@@ -55,6 +55,13 @@
   </form>
 </dialog>
 <dialog id="resetDialog"><h2>开始新的分析？</h2><p>当前分析会先存档，再清空工作区。已求解模型会加入保存结果列表；也可以先下载文件。</p><div class="dialog-footer"><button id="cancelReset" class="quiet">保留当前分析</button><button id="confirmReset" class="primary">开始新分析</button></div></dialog>
+<dialog id="savedDialog" aria-labelledby="savedDialogTitle">
+  <form id="savedForm"><h2 id="savedDialogTitle">管理保存的计算</h2><p id="savedDialogName" class="saved-dialog-name"></p><p id="savedDialogNote" class="muted"></p>
+    <label id="savedRenameField" for="savedTitle">计算名称<input id="savedTitle" type="text" maxlength="100" required autocomplete="off"></label>
+    <p id="savedDialogError" class="inline-error" role="alert" hidden></p>
+    <div class="dialog-footer"><button id="cancelSaved" type="button" class="quiet">取消</button><button id="confirmSaved" type="submit" class="primary">保存名称</button></div>
+  </form>
+</dialog>
 <div id="toast" class="toast" role="status" hidden></div>
 <script src="/app.js"></script>
 </body></html>

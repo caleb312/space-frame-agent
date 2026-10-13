@@ -1,4 +1,4 @@
-"""2014教材原生平桁/空桁/平刚：ch→stif→dor→ldlt→slveq→doh。"""
+"""项目计算规则原生平桁/空桁/平刚：ch→stif→dor→ldlt→slveq→doh。"""
 from copy import deepcopy
 from dataclasses import dataclass
 import hashlib

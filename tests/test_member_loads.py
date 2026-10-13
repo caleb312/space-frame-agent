@@ -1,4 +1,4 @@
-"""跨内荷载：独立静力/解析解、教材原题及旧验证适配器对照。"""
+"""跨内荷载：独立静力/解析解、参考资料原题及旧验证适配器对照。"""
 from copy import deepcopy
 import json
 from pathlib import Path
@@ -66,7 +66,7 @@ class MemberLoadTests(unittest.TestCase):
         model = beam([0.,-6.,0.], interval=[0.,2.])
         model['nodes'][1]['restrained'] = [True]*6
         result = solve_space_frame(model)
-        # 教材固定端公式，q_y=-6、L=2：每端竖向反力6，课件力矩 i=-2、j=+2。
+        # 参考资料固定端公式，q_y=-6、L=2：每端竖向反力6，课件力矩 i=-2、j=+2。
         expected = np.array([0.,6.,0.,0.,0.,-2.,0.,6.,0.,0.,0.,2.])
         np.testing.assert_allclose(result.h[0], expected, atol=1e-13)
         np.testing.assert_allclose(result.u,0,atol=0)
@@ -80,7 +80,7 @@ class MemberLoadTests(unittest.TestCase):
         self.assertAlmostEqual(tip[5],6*2**3/(6*8000),places=14)
         np.testing.assert_allclose(result.reactions[:6],[0.,12.,0.,0.,0.,-12.],atol=1e-11)
         np.testing.assert_allclose(result.h[0,6:],0,atol=1e-11)
-        # 右侧剩余向下荷载使教材截面 Mz 为负，不能套用另一组弯矩正号。
+        # 右侧剩余向下荷载使局部截面 Mz 为负，不能套用另一组弯矩正号。
         np.testing.assert_allclose(result.sections[0]['forces'],[0.,6.,0.,0.,0.,-3.],atol=1e-11)
 
     def test_partial_uniform_analytic(self):
@@ -92,7 +92,7 @@ class MemberLoadTests(unittest.TestCase):
         expected = q*(primitive(b)-primitive(a))/EI
         self.assertAlmostEqual(tip[2],expected,places=14)
         self.assertAlmostEqual(tip[4],q*(b**3-a**3)/(6*EI),places=14)
-        # 右侧向上荷载的物理 My 为负；教材 My 与该物理分量反号。
+        # 右侧向上荷载的物理 My 为负；参考资料 My 与该物理分量反号。
         np.testing.assert_allclose(result.sections[0]['forces'],[0.,0.,-2.,0.,.5,0.],atol=1e-11)
 
     def test_point_force_section_jump(self):

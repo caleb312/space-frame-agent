@@ -32,7 +32,7 @@ function renderModel(){const draft=state.draft,m=state.model||draft?.candidate_m
   else text+='<div class="good-note">'+(state.result?'当前展示已求解模型与匹配结果。':'基本校验通过。请核对物理模型，再点击下方确认计算。')+'</div>';
   text+=title('节点与支座',native?(kind==='plane_frame'?'自由度 ux / uy / rz':kind==='plane_truss'?'自由度 ux / uy':'自由度 ux / uy / uz'):'自由度 ux / uy / uz / rx / ry / rz')+table(['节点','坐标 / m','约束'],ns.map(n=>[n.id??'?',vector(n.coordinates),Array.isArray(n.restrained)?n.restrained.map(x=>x===true?'固定':x===false?'自由':'?').join(' / '):'待确定']));
   if(native)text+=title('构件连接')+table(['构件','i → j','材料 / 截面'],es.map(e=>[e.id??'?',(e.node_i??'?')+' → '+(e.node_j??'?'),(e.material_id??'?')+' / '+(e.section_id??'?')]));else text+=title('构件连接','local_y 为全局参考向量')+table(['构件','i → j','local_y','材料 / 截面'],es.map(e=>[e.id??'?',(e.node_i??'?')+' → '+(e.node_j??'?'),vector(e.local_y),(e.material_id??'?')+' / '+(e.section_id??'?')]));
-  text+=title('荷载清单','节点力矩采用 course_clockwise 正号');
+  text+=title('荷载清单','节点力矩采用项目顺时针正号');
   if(loads)text+=table(['标识','类型 / 目标','位置 / 区间','实际分量 [Fx,Fy,Fz,Mx,My,Mz]','原始说明'],loads.map(l=>{const computed=(draft?.computed_fields||[]).find(f=>f.load_label===l.label&&f.source==='python_moment_sign');return [l.label,l.kind+' / '+(l.target_id??'?'),l.position!=null?number(l.position)+' m':l.interval?vector(l.interval)+' m':'—',vector(computed?.value??l.components),l.raw_description];}));
   else text+=table(['类型','目标','分量','位置 / 区间'],[...(m.loads||[]).map(l=>['节点荷载',l.node_id,vector(l.components),'—']),...(m.member_loads||[]).map(l=>[l.kind,l.element_id,vector(l.components),l.position!=null?number(l.position)+' m':vector(l.interval)+' m'])]);
   if(native)text+=title('材料',m.units||'单位待确认')+table(['材料','E'],(m.materials||[]).map(x=>[x.id??'?',number(x.E)]))+title('截面','A：m²；I：m⁴')+table(kind==='plane_frame'?['截面','A','I']:['截面','A'],(m.sections||[]).map(x=>kind==='plane_frame'?[x.id??'?',number(x.A),number(x.I)]:[x.id??'?',number(x.A)]));else text+=title('材料与截面',m.units||'单位待确认')+table(['材料','E','G'],(m.materials||[]).map(x=>[x.id??'?',number(x.E),number(x.G)]))+title('截面参数','A：m²；Iy / Iz / J：m⁴')+table(['截面','A','Iy','Iz','J'],(m.sections||[]).map(x=>[x.id??'?',number(x.A),number(x.Iy),number(x.Iz),number(x.J)]));
@@ -43,10 +43,10 @@ function renderModel(){const draft=state.draft,m=state.model||draft?.candidate_m
   text+=raw('查看完整模型 JSON',m);$('modelPane').innerHTML=text;
 }
 function renderResults(){const r=state.result;if(!r){$('resultPane').innerHTML='<div class="empty-view"><span>∑</span><h3>等待确认并计算</h3><p>这里显示程序结果表；计算失败或信息缺失时不会填入估计数值。</p></div>';return;}
-  let text='<div class="result-heading"><h3>Python Solver 计算结果</h3><button id="explainButton" class="quiet" '+(!state.result||state.busy?'disabled':'')+'>生成结果概要</button></div><p class="unit-note">节点量为全局坐标；转角及节点／杆端力矩显示右手正号；截面保持教材正号。原始 JSON 保持 course_clockwise。</p>';
+  let text='<div class="result-heading"><h3>Python Solver 计算结果</h3><button id="explainButton" class="quiet" '+(!state.result||state.busy?'disabled':'')+'>生成结果概要</button></div><p class="unit-note">节点量为全局坐标；转角及节点／杆端力矩显示右手正号；截面保持项目正号。原始 JSON 保持 course_clockwise。</p>';
   const nativeKind=r.structure_type;const active=nativeKind==='plane_frame'?[0,1,5]:nativeKind==='plane_truss'?[0,1]:nativeKind==='space_truss'?[0,1,2]:null;if(active){text+=title('结构类型',structureNames[nativeKind])+title('节点位移',nativeKind==='plane_frame'?'平动 m · 转角 rad（右手）':'平动 m')+table(['节点',...active.map(i=>['ux','uy','uz','rx','ry','rz'][i])],r.nodes.map(n=>[n.id,...active.map(i=>number(n.displacement[i]))]));text+=title('支座反力','力 '+r.units.force+(nativeKind==='plane_frame'?' · 力矩 '+r.units.moment:''))+table(['节点',...active.map(i=>['Rx','Ry','Rz','Mx','My','Mz'][i])],r.nodes.filter(n=>n.restrained.some(Boolean)).map(n=>[n.id,...active.map(i=>number(n.reaction[i]))]));}else {text+=title('节点位移','平动 m · 转角 rad')+table(['节点','ux','uy','uz','rx','ry','rz'],r.nodes.map(n=>[n.id,...n.displacement.map(number)]));
   text+=title('支座反力','力 '+r.units.force+' · 力矩 '+r.units.moment)+table(['节点','Rx','Ry','Rz','Mx','My','Mz'],r.nodes.filter(n=>n.restrained.some(Boolean)).map(n=>[n.id,...n.reaction.map(number)]));
-  }const sectionIndices=active?(nativeKind==='plane_frame'?[0,1,5]:[0]):[0,1,2,3,4,5];if(r.sections.length)text+=title('指定截面内力','局部坐标 · textbook_section')+table(['截面','构件','位置 / m','侧',...sectionIndices.map(i=>['N','Qy','Qz','T','My','Mz'][i])],r.sections.map(s=>[s.id,s.element_id,number(s.position),s.side,...sectionIndices.map(i=>number(s.forces[i]))]));
+  }const sectionIndices=active?(nativeKind==='plane_frame'?[0,1,5]:[0]):[0,1,2,3,4,5];if(r.sections.length)text+=title('指定截面内力','局部坐标 · 项目截面正号')+table(['截面','构件','位置 / m','侧',...sectionIndices.map(i=>['N','Qy','Qz','T','My','Mz'][i])],r.sections.map(s=>[s.id,s.element_id,number(s.position),s.side,...sectionIndices.map(i=>number(s.forces[i]))]));
   if(nativeKind&&nativeKind!=='plane_frame')text+=title('桁架轴力','受拉为正 · '+r.units.force)+table(['构件','N'],r.elements.map(e=>[e.id,number(e.axial_force)]));else {const endIndices=nativeKind==='plane_frame'?[0,1,5]:[0,1,2,3,4,5];text+=title('杆端内力','局部坐标 · 力 '+r.units.force+' · 力矩 '+r.units.moment)+table(['构件','端',...endIndices.map(i=>['Fx','Fy','Fz','Mx','My','Mz'][i])],r.elements.flatMap(e=>[[e.id,'i',...endIndices.map(i=>number(e.end_i[i]))],[e.id,'j',...endIndices.map(i=>number(e.end_j[i]))]]));}
   if(state.answer)text+=title('结果概要与解释')+'<div class="explanation-card">'+esc(state.answer)+'</div>';
   text+='<div class="download-row">'+download('result','原始结果 JSON')+download('summary','程序结果表')+download('visual','离线三维 HTML')+(state.answer?download('answer','文字解释'):'')+'</div><div class="hash">模型指纹 '+esc(r.model_hash)+'</div>';
@@ -63,10 +63,52 @@ function render(){const busy=state.busy;$('busyBar').hidden=!busy;$('busyText').
   $('confirmTitle').textContent=state.status==='solved'?'当前模型已求解':state.status==='ready'?'模型已通过基本校验':'先建立并核对结构模型';$('confirmNote').textContent=busy?state.stage:state.status==='solved'?'结果追问不修改模型；修改结构后需要重新确认。':state.status==='ready'?'点击按钮将确认当前模型并调用 Solver。':'需要补齐结构类型、坐标、支座、材料和全部荷载。';
   $('regenerateVisual').disabled=!state.can_view;$('openVisual').hidden=!state.visual;$('visualHint').textContent=state.result?(['plane_truss','space_truss'].includes(state.model?.structure_type)?'已求解 · 原构形与变形／轴力':'已求解 · 原构形与变形／内力'):'结构预览 · 尚未求解';
   if(state.visual){$('visualEmpty').hidden=true;$('visualFrame').hidden=false;if(visualURL!==state.visual){visualURL=state.visual;$('visualFrame').src=visualURL+'&embedded=1';}$('openVisual').href=state.visual;}else{$('visualEmpty').hidden=false;$('visualFrame').hidden=true;visualURL='';$('visualFrame').removeAttribute('src');}
+  document.querySelectorAll('[data-saved-control]').forEach(button=>button.disabled=busy);
   setMode(mode);renderChat();renderReading();renderModel();renderResults();renderSources();
 }
 async function refresh(force=false){const next=await get('/api/state');if(force||next.revision!==renderVersion||next.busy!==state?.busy||next.stage!==state?.stage){state=next;renderVersion=next.revision;render();}else state=next;}
-async function savedList(){const list=await get('/api/results');$('savedList').replaceChildren();for(const item of list){const b=document.createElement('button');b.textContent=item.name==='2_agent_result.json'?'例 IV-2 · 已核对结果':item.name==='agent_result.json'?'例 IV-1 · 已核对结果':item.name;const small=document.createElement('small');small.textContent=item.nodes+' 节点 · '+item.elements+' 构件';b.append(small);b.onclick=async()=>{if(state?.busy)return toast('当前操作尚未完成');await perform('load',{name:item.name});setTab('result');};$('savedList').append(b);}if(!list.length)$('savedList').textContent='暂无已保存结果';}
+async function savedList(){
+  const list=await get('/api/results');$('savedList').replaceChildren();
+  for(const item of list){
+    const row=document.createElement('div');row.className='saved-item';
+    const open=document.createElement('button');open.className='saved-open';open.dataset.savedControl='';open.disabled=!!state?.busy;
+    const label=document.createElement('span');label.className='saved-title';label.textContent=item.title||item.name;open.title=label.textContent;
+    const small=document.createElement('small');small.textContent=item.nodes+' 节点 · '+item.elements+' 构件';open.append(label,small);
+    open.onclick=async()=>{if(state?.busy)return toast('当前操作尚未完成');await perform('load',{name:item.name});setTab('result');};
+    const tools=document.createElement('div');tools.className='saved-tools';
+    for(const [operation,text] of [['rename','改名'],['delete','删除']]){
+      const button=document.createElement('button');button.type='button';button.textContent=text;button.dataset.savedControl='';button.disabled=!!state?.busy;
+      button.setAttribute('aria-label',text+' '+label.textContent);if(operation==='delete')button.className='saved-delete';
+      button.onclick=()=>openSavedDialog(item,operation);tools.append(button);
+    }
+    row.append(open,tools);$('savedList').append(row);
+  }
+  if(!list.length)$('savedList').textContent='暂无已保存结果';
+}
+let savedDialogItem=null,savedDialogOperation='',savedMutation=false;
+function openSavedDialog(item,operation){
+  if(state?.busy)return toast('当前操作尚未完成');
+  savedDialogItem=item;savedDialogOperation=operation;
+  $('savedDialogTitle').textContent=operation==='rename'?'重命名计算':'删除保存的计算';
+  $('savedDialogName').textContent=item.title||item.name;
+  $('savedRenameField').hidden=operation!=='rename';$('savedTitle').disabled=operation!=='rename';$('savedTitle').value=item.title||item.name;
+  $('savedDialogNote').textContent=operation==='rename'?'修改左侧列表中的名称，刷新后仍保留。':'删除后该计算会从列表移除，重复保存记录一并移入本机回收目录。当前打开的结果仍可查看。';
+  $('savedDialogError').hidden=true;$('confirmSaved').textContent=operation==='rename'?'保存名称':'删除记录';
+  $('confirmSaved').className=operation==='rename'?'primary':'danger';$('savedDialog').showModal();
+  if(operation==='rename'){$('savedTitle').focus();$('savedTitle').select();}
+}
+$('cancelSaved').onclick=()=>{if(!savedMutation)$('savedDialog').close();};
+$('savedDialog').addEventListener('cancel',event=>{if(savedMutation)event.preventDefault();});
+$('savedForm').onsubmit=async event=>{
+  event.preventDefault();if(savedMutation||!savedDialogItem)return;
+  savedMutation=true;$('confirmSaved').disabled=true;$('cancelSaved').disabled=true;$('savedDialogError').hidden=true;
+  try{
+    await action(savedDialogOperation==='rename'?'rename_saved':'delete_saved',{
+      name:savedDialogItem.name,...(savedDialogOperation==='rename'?{title:$('savedTitle').value}:{})});
+    $('savedDialog').close();await savedList();toast(savedDialogOperation==='rename'?'名称已保存':'保存记录已移入本机回收目录');
+  }catch(error){$('savedDialogError').textContent=error.message;$('savedDialogError').hidden=false;}
+  finally{savedMutation=false;$('confirmSaved').disabled=false;$('cancelSaved').disabled=false;}
+};
 async function perform(name,options={}){try{await action(name,options);}catch(e){toast(e.message);}}
 async function sendMessage(){if(sending||state?.busy)return;const text=$('message').value.trim();if(!text)return toast('请先输入问题或补充信息');if(mode==='read'&&!pendingImage)return toast('图片识读请随本轮上传图片');const requestMode=mode;if(pendingDocument&&requestMode!=='model')return toast('条件文件请切换到建模与纠正后发送');sending=true;$('sendButton').disabled=true;try{await action({model:'chat',explain:'explain',read:'read_image'}[requestMode],{text,...(pendingDocument?{document:{name:pendingDocument.name,text:pendingDocument.text}}:{}),...(requestMode!=='explain'&&pendingImage?{image:{name:pendingImage.name,data:pendingImage.data}}:{})});$('message').value='';removeImage();removeDocument();if(requestMode==='read')setTab('reading');}catch(e){toast(e.message);}finally{sending=false;await refresh(true);}}
 function removeDocument(){pendingDocument=null;$('documentAttachment').hidden=true;$('documentFile').value='';$('documentPreview').textContent='';}

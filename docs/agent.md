@@ -11,9 +11,9 @@
 以下是最新实际状态；后续段落保留此前各阶段记录。
 开启 thinking 时用户遇到 32768 token 截断；同一模型关闭 thinking 后成功提交记录与参数工具。
 首轮漏节点、误读连接和荷载作用点，第一轮人工纠正后仍保留错误坐标；
-第二轮按教材输入表补充完整坐标、支座、局部轴和全局荷载分量后，模型通过核对。
+第二轮按参考资料输入表补充完整坐标、支座、局部轴和全局荷载分量后，模型通过核对。
 用户 /confirm 完成 Solver、程序结果表、新版 DeepSeek 文字解释与三维 HTML 生成，并执行 /view 返回文件路径。
-保存结果的位移/转角/五个跨中内力与教材在原容差内一致（显式保留 E04 原印刷及项目修正）；
+保存结果的位移/转角/五个跨中内力与参考资料在原容差内一致（显式保留 E04 原印刷及项目修正）；
 原始荷载及实际作用位置独立力/力矩平衡检查通过，后处理杆端相容性检查完成。
 本轮没有重新检查浏览器图形，不声称本例通过全自动识图或模型主动调用图形工具。
 新版文字解释已实际引用程序统计，并区分全局节点/反力与局部杆端/截面；文字过长仍需改善。
@@ -96,7 +96,7 @@ VISION 是人工确认的能力开关，不是程序自动识别供应商型号�
 - `src/agent/providers.py`：仅三家配置、HTTP 请求、图片编码；保留 DeepSeek 工具续调用所需 reasoning_content，不显示该字段。
 - `src/agent/recognition.py`：识别记录字段、来源与未知值规则、候选模型编译、荷载分类及摘要。
 - `src/agent/runtime.py`：识别、参数、求解与三维四个工具，识别/确认/结果状态、最多八轮工具调用。
-- `src/solver/parameters.py`：教材 E/ν/R 参数公式与单位换算，独立于 API。
+- `src/solver/parameters.py`：参考资料 E/ν/R 参数公式与单位换算，独立于 API。
 - `agent_main.py`：终端用户操作和结果保存。
 - `src/solver/`：沿用已验证的确定性计算实现。
 
@@ -131,7 +131,7 @@ VISION 是人工确认的能力开关，不是程序自动识别供应商型号�
 
 限制：程序可以校验记录格式和记录中声明的未知项、不支持项，但不能独立证明 AI 已识别全部荷载，
 也无法识别一个被 AI 错误标为 observed 的猜测值。因此仍必须由用户对照原图审核，不能宣称已消除误识别。
-改进提示没有包含 IV-1 的教材答案，避免把已知答案伪装为通用图片识别结果。
+改进提示没有包含 IV-1 的参考资料答案，避免把已知答案伪装为通用图片识别结果。
 
 方向校正后的用户回传记录已能正确描述水平/竖直构件及部分荷载区间，但出现 node_i/node_j 使用数组下标、
 漏填构件 id 和材料/截面管理编号的问题。现增加不完整模型的编号唯一性、连接引用、荷载目标和证据编号一致性检查。
@@ -159,7 +159,7 @@ python explain_result.py --provider deepseek
 
 只生成结果表、不请求 API：`python explain_result.py --local`。
 默认读 results/agent_result.json，输出 agent_result.summary.md 和成功时的 agent_result.answer.md。
-结果表/解释输入的节点转角及节点/杆端力矩由 Python 换为教材附录右手正号；
+结果表/解释输入的节点转角及节点/杆端力矩由 Python 换为右手正号；
 原始 JSON 仍为 course_clockwise，截面保持 textbook_section，不把两类符号混用。
 本次改进已做语法检查和实际保存结果的本地表格生成；新的解释 API 调用尚未核对。
 
@@ -173,7 +173,7 @@ python explain_result.py --provider deepseek
 
 支持各向同性线弹性材料与实心圆截面，输入原始 E、ν、R 及单位，不套用于圆管或一般截面。
 E 输入 Pa/kPa/MPa/GPa/N/m^2/kN/m^2，R 输入 m/cm/mm，输出沿用 N_m 或 kN_m。
-公式与教材 Jy/Jz/Jp → Iy/Iz/J 的映射见 [材料截面理论](theory/material-section.md)。
+公式与参考资料 Jy/Jz/Jp → Iy/Iz/J 的映射见 [材料截面理论](theory/material-section.md)。
 
 独立运行，不需要 API 密钥：
 
@@ -181,7 +181,7 @@ E 输入 Pa/kPa/MPa/GPa/N/m^2/kN/m^2，R 输入 m/cm/mm，输出沿用 N_m 或 k
 python parameters_main.py examples/material_section_iv1.json
 ```
 
-结果保存到 results/material_section_result.json。自动工具保持全精度计算，不模拟教材录入值的舍入。
+结果保存到 results/material_section_result.json。自动工具保持全精度计算，不模拟参考资料录入值的舍入。
 
 Agent 指令示例：
 
@@ -193,7 +193,7 @@ Agent 指令示例：
 参数非法、单位不一致或识别值冲突会阻止求解；uncertain 不因有一次工具计算而被覆盖。
 
 results/agent_parameters_iv1_demo.json 是本次离线示例：读取用户的真实旧识别记录，
-使用已核对的教材 E/ν/R，未发送 API 请求，不能称为新一轮 DeepSeek 识图结果。
+使用已核对的参考资料 E/ν/R，未发送 API 请求，不能称为新一轮 DeepSeek 识图结果。
 
 解释阶段通过指令要求数值引用当前工具结果，完整原始结果同时保存供核对。
 当前尚无自动校验每个自然语言数值引用的机制，不能宣称彻底消除模型幻觉。
@@ -215,8 +215,8 @@ results/agent_parameters_iv1_demo.json 是本次离线示例：读取用户的�
 - midspan 位置由 Python 计算；position 是距构件 i 端的实际距离。未知位置或方向保持 null。
 
 信息足够时模型可确认，输入 /confirm 计算。结果包含真正杆端力及 sections，不用 AI 等效荷载或恢复内力。
-未解决的节点坐标、支座、局部轴或力矩方向仍需用户/教材明确补充；本次功能扩展不等于图片所有信息都已正确识别。
-需要独立检查 Solver 可运行 main.py examples/textbook_iv1_native.json；其输入明确来自教材，不是图片提取结果。
+未解决的节点坐标、支座、局部轴或力矩方向仍需用户/参考资料明确补充；本次功能扩展不等于图片所有信息都已正确识别。
+需要独立检查 Solver 可运行 main.py examples/textbook_iv1_native.json；其输入明确来自参考资料，不是图片提取结果。
 
 1. DeepSeek：明确的文字结构输入 → 草稿 → 确认 → Solver → 解释。
 2. Qwen：选用具备视觉及工具能力的型号，图片 + 文字 → 提取 → 追问 → 确认 → 求解。

@@ -1,4 +1,4 @@
-"""用户显式选用教材规则时生成局部轴，不能用于猜测图片截面朝向。
+"""用户显式选用参考资料规则时生成局部轴，不能用于猜测图片截面朝向。
 
 正文 p119～120 式5-6/5-10；附录IV p183/p195～196。
 两处的零转角参考轴不同，必须显式区分。
@@ -10,13 +10,13 @@ def textbook_basis(xi, xj, roll=0., style='chapter5'):
     """返回局部到总体的 3×3 基 Q；roll 为明确给定的截面转角(rad)。"""
     xi, xj = np.asarray(xi,dtype=float), np.asarray(xj,dtype=float)
     if xi.shape != (3,) or xj.shape != (3,) or not np.all(np.isfinite([xi,xj])):
-        raise ValueError('教材轴函数需要有限三维坐标')
+        raise ValueError('参考资料轴函数需要有限三维坐标')
     if style not in ('chapter5','appendix4') or not np.isfinite(roll):
-        raise ValueError('教材轴类型或截面转角无效')
+        raise ValueError('参考资料轴类型或截面转角无效')
     delta = xj-xi
     length = np.linalg.norm(delta)
     if not np.isfinite(length) or length <= 0:
-        raise ValueError('教材轴函数遇到零长度或无效长度')
+        raise ValueError('参考资料轴函数遇到零长度或无效长度')
     ex = delta/length
     horizontal = np.hypot(ex[0],ex[1])
     if horizontal <= 1e-12:

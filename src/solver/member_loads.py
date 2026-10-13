@@ -91,7 +91,7 @@ def assemble_member_loads(model, arrays, elements):
 
 
 def section_forces(end_i, local_loads, position, side='right'):
-    """教材截面 N/Qy/Qz/T/My/Mz，由左侧荷载的静力平衡恢复。"""
+    """局部截面 N/Qy/Qz/T/My/Mz，由左侧荷载的静力平衡恢复。"""
     force = end_i[:3].copy()
     moment_rh = -end_i[3:].copy() - np.cross([position,0,0], force)
     for load in local_loads:
@@ -108,7 +108,7 @@ def section_forces(end_i, local_loads, position, side='right'):
                 moment_rh += np.cross([load.position-position,0,0], load.components)
             else:
                 moment_rh -= load.components  # 课件负右手力矩 → 物理右手分量。
-    # 教材附录 p198～199 的截面符号，与节点/杆端广义力并非同一组正号。
+    # 参考资料附录 p198～199 的截面符号，与节点/杆端广义力并非同一组正号。
     result = np.r_[-force, -moment_rh]*np.array([1,-1,-1,1,-1,1])
     if not np.all(np.isfinite(result)):
         raise ValueError('截面内力恢复产生非有限数值')

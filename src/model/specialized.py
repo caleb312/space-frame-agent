@@ -1,4 +1,4 @@
-"""2014教材的原生平刚/平桁/空桁输入；不使用虚拟转动刚度。"""
+"""项目计算规则的原生平刚/平桁/空桁输入；不使用虚拟转动刚度。"""
 from typing import Literal
 import numpy as np
 from pydantic import Field, StrictInt, StrictBool, model_validator

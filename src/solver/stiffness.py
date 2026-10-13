@@ -7,12 +7,12 @@ from .geometry import force_transform, mtmult, trnsps
 
 
 def local_stiffness(length, ea, eiy, eiz, gj):
-    """生成课件顺时针转角约定下的 12×12 单刚。"""
+    """生成项目顺时针转角约定下的 12×12 单刚。"""
     values = np.array([length, ea, eiy, eiz, gj], dtype=float)
     if not np.all(np.isfinite(values)) or np.any(values <= 0):
         raise ValueError('单刚参数必须为有限正数')
     k = np.zeros((12, 12))
-    # C03/C08 轴向；GJ/L 最初标准补充，现已由教材 p123 式5-18确认。
+    # C03/C08 轴向；GJ/L 最初标准补充，现已由参考资料 p123 式5-18确认。
     pair = np.array([[1., -1.], [-1., 1.]])
     k[np.ix_([0, 6], [0, 6])] = ea / length * pair
     k[np.ix_([3, 9], [3, 9])] = gj / length * pair

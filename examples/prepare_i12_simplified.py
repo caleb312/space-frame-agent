@@ -17,7 +17,7 @@ G_REF = E_REF/2.6
 COORDINATES = [
     [0,0,0],[8.5,0,0],[20.9,0,0],[0,0,5.8],[8.5,0,6.6],[8.5,0,13],[20.9,0,13],
     [0,15,0],[8.5,15,0],[20.9,15,0],[0,15,5.8],[8.5,15,6.6],[8.5,15,13],[20.9,15,13]]
-# 教材HL/HR、EK（弹性性质类别），按左右表交错读取的构件编号。
+# 参考资料HL/HR、EK（弹性性质类别），按左右表交错读取的构件编号。
 ELEMENTS = [(1,4,1),(4,5,2),(2,5,3),(5,6,3),(6,7,4),(3,7,3),(4,11,2),(5,12,2),
             (6,13,4),(7,14,4),(8,11,1),(11,12,2),(9,12,3),(12,13,3),(13,14,4),(10,14,3)]
 RIGIDITIES = [(416000,5460,5460,1e8),(1740000,42900,42900,1e8),
@@ -66,8 +66,8 @@ def main():
     path=ROOT/'examples/i12_simplified.json'
     path.write_text(json.dumps(model,ensure_ascii=False,indent=2),encoding='utf-8')
     result=solve_space_frame(model).as_dict()
-    metadata={'name':'I-12简化模型','calculation_basis':'现有2014课程Solver及已确认项目规则',
-        'condition_source':'钟万勰附录一例题2，条件单独翻译',
+    metadata={'name':'I-12简化模型','calculation_basis':'现有项目Solver及已确认项目规则',
+        'condition_source':'外部资料附录一例题2，条件单独翻译',
         'simplifications':['忽略杆端刚臂，采用节点间全长弹性杆','忽略剪切变形',
                            '保留荷载偏心的集中力矩，④⑭荷载位置转换为节点端距离3m'],
         'reference_material':'E/G仅为保存EA/EI/GJ的归一化拆分基准，不代表原题真实材性',
@@ -78,7 +78,7 @@ def main():
     (ROOT/'results/i12_simplified.summary.md').write_text('> 简化模型：忽略刚臂与剪切变形，非原题精确复现。\n\n'+result_table(result),encoding='utf-8')
     (ROOT/'results/i12_simplified.answer.md').write_text('简化模型：忽略刚臂与剪切变形。\n\n'+quick_result_summary(result),encoding='utf-8')
     write_frame_html(model,None,ROOT/'results/i12_simplified.model.html',title='I-12 简化模型 · 忽略刚臂与剪切变形（未显示求解结果）')
-    write_frame_html(model,result,ROOT/'results/i12_simplified.3d.html',title='I-12 简化分析 · 2014课程Solver · 忽略刚臂与剪切变形')
+    write_frame_html(model,result,ROOT/'results/i12_simplified.3d.html',title='I-12 简化分析 · 项目Solver · 忽略刚臂与剪切变形')
     previous=json.loads((ROOT/'work/zhong_book/solver_before_translation.json').read_text(encoding='utf-8'))
     unchanged=all(hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==value for name,value in previous.items())
     print(json.dumps({'model':str(path),'result':str(out),'solver_files_unchanged':unchanged,

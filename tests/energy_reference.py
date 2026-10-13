@@ -1,7 +1,7 @@
 """独立验证参考：Hermite 形函数能量积分，禁止调用 src.solver。
 
 直接积分应变矩阵 B，采用 NumPy 求解，对照教学四分块/LDLT 实现。
-此文件是验证工具，不是生产 Solver，也不是指定教材原题。
+此文件是验证工具，不是生产 Solver，也不是指定参考资料原题。
 理论见 docs/theory/space-frame-derivation.md。
 """
 import numpy as np

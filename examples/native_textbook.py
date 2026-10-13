@@ -1,4 +1,4 @@
-"""教材数组到通用 member_loads 的显式输入转换，不求解、不修正结果。"""
+"""参考资料数组到通用 member_loads 的显式输入转换，不求解、不修正结果。"""
 from .textbook_reference import equivalent_model
 
 
@@ -20,7 +20,7 @@ def native_textbook_model(raw):
             components[1+plane] = value*(1 if plane == 0 else -1)
             name = 'point_moment'
         else:
-            raise ValueError('原题转换尚未登记该教材荷载类型')
+            raise ValueError('原题转换尚未登记该参考资料荷载类型')
         item = {'element_id': load['element'], 'kind': name,
                 'coordinate_system': 'local', 'components': components}
         if kind == 2:

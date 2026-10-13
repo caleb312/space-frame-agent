@@ -10,7 +10,7 @@
 
 真实 IV-1 模型的重构端点最大平动误差约 8.67e−18 m，转角误差约 3.47e−18 rad。
 可视化不重新求解，不修改模型或 Solver 数值；错配哈希和端点不一致均拒绝绘图。
-数据面板与 CSV 的转角/力矩由 Python 转为教材附录右手约定，原始 JSON 保持课件约定。
+数据面板与 CSV 的转角/力矩由 Python 转为右手约定，原始 JSON 保持课件约定。
 
 ## 实际运行与浏览器检查
 
@@ -27,7 +27,7 @@
 ## 交付文件
 
 - results/agent_result.3d.html：真实已确认、已求解的 IV-1 模型。
-- results/textbook_iv1.model3d.html：教材模型的未求解结构预览。
+- results/textbook_iv1.model3d.html：参考资料模型的未求解结构预览。
 - results/frame_3d_preview.png：从实际浏览器导出的三维预览。
 - docs/visualization.md：入口、交互、结果约定与范围。
 

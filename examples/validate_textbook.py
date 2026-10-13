@@ -52,7 +52,7 @@ def validate_case(name):
 
 
 def main():
-    parser=argparse.ArgumentParser(description='2014教材附录IV原题复现与明确勘误核对')
+    parser=argparse.ArgumentParser(description='项目计算规则附录IV原题复现与明确勘误核对')
     parser.add_argument('--output',type=Path,default=Path('results/textbook_verification.json'))
     args=parser.parse_args()
     cases={name:validate_case(name) for name in ('iv1','iv2')}

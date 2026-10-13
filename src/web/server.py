@@ -29,6 +29,7 @@ HERE = Path(__file__).resolve().parent
 STORE = ROOT/'results'/'web_sessions'
 MAX_BODY = 15*1024*1024
 SID_PATTERN = re.compile(r'^[a-f0-9]{32}$')
+SAVED_LOCK = threading.RLock()
 
 
 def write_json(path, value):
@@ -389,14 +390,14 @@ class Session:
 
     def open_saved(self, name):
         # 只接收本项目 results 顶层文件名，禁止任意路径读取。
-        if not isinstance(name,str) or Path(name).name!=name or '\\' in name or '/' in name or not name.endswith('.json'):
-            raise ValueError('请选择列表中的结果文件')
-        path = ROOT/'results'/name
-        result = load_saved_result(path)
-        saved = json.loads(path.read_text(encoding='utf-8'))
+        with SAVED_LOCK:
+            path = saved_path(name)
+            entry = next((item for item in saved_results() if item['name']==name),None)
+            if entry is None:
+                raise ValueError('不是可打开的结构结果文件')
+            result = load_saved_result(path)
+            saved = json.loads(path.read_text(encoding='utf-8'))
         model = parse_model(saved['model']).model_dump(mode='json')
-        if not name in {item['name'] for item in saved_results()}:
-            raise ValueError('不是可打开的结构结果文件')
         client = self.agent.client
         self.agent = FrameAgent(client)
         self.agent.visualization_output = str(self.path/'visual.html')
@@ -423,7 +424,7 @@ class Session:
         self.journal = []
         self.source = name
         self.loaded = True
-        self.add('notice','已打开 '+name+'。未请求 API，也未重新求解。')
+        self.add('notice','已打开 '+entry['title']+'。未请求 API，也未重新求解。')
         self.generate_visual('results')
         self.error = ''
         self.persist()
@@ -437,20 +438,52 @@ class Session:
         history.mkdir(exist_ok=True)
         shutil.copyfile(self.path/'session.json',history/(stamp+'.json'))
         if self.agent.result is not None:
-            prefix = 'web_'+stamp+'_'+self.sid[:6]
-            for kind, suffix in [('result.json','.json'),('recognition.json','.recognition.json'),
-                                 ('summary.md','.summary.md'),('answer.md','.answer.md')]:
-                path = self.path/kind
-                if path.exists() and (kind!='answer.md' or self.answer):
-                    shutil.copyfile(path,ROOT/'results'/(prefix+suffix))
+            with SAVED_LOCK:
+                # 删除保存记录后，当前工作区仍可查看，但自动存档不能让它重新出现。
+                info = saved_catalog()['items'].get(self.agent.result['model_hash'],{})
+                if info.get('deleted'):
+                    return
+                prefix = 'web_'+stamp+'_'+self.sid[:6]
+                for kind, suffix in [('result.json','.json'),('recognition.json','.recognition.json'),
+                                     ('summary.md','.summary.md'),('answer.md','.answer.md')]:
+                    path = self.path/kind
+                    if path.exists() and (kind!='answer.md' or self.answer):
+                        shutil.copyfile(path,ROOT/'results'/(prefix+suffix))
 
 
-def saved_results():
+def saved_path(name):
+    if (not isinstance(name,str) or not name or Path(name).name!=name
+        or '\\' in name or '/' in name or not name.endswith('.json')
+        or name.startswith('.') or any(ord(c)<32 for c in name)):
+        raise ValueError('请选择列表中的结果文件')
+    directory = (ROOT/'results').resolve()
+    path = ROOT/'results'/name
+    if (not directory.is_relative_to(ROOT.resolve()) or path.is_symlink()
+        or path.resolve().parent!=directory):
+        raise ValueError('结果文件路径不合法')
+    return path
+
+
+def saved_catalog():
+    path = ROOT/'results'/'.saved_catalog.json'
+    if path.is_symlink():
+        raise ValueError('保存列表记录路径不合法')
+    if not path.exists():
+        return {'version':1,'items':{}}
+    data = json.loads(path.read_text(encoding='utf-8'))
+    if (not isinstance(data,dict) or data.get('version')!=1 or not isinstance(data.get('items'),dict)
+        or any(not isinstance(info,dict) for info in data['items'].values())):
+        raise ValueError('保存列表记录无法读取')
+    return data
+
+
+def collect_saved_results():
     available = []
     for path in (ROOT/'results').glob('*.json'):
-        if path.stat().st_size>10*1024*1024:
-            continue
         try:
+            path = saved_path(path.name)
+            if path.stat().st_size>10*1024*1024:
+                continue
             data = json.loads(path.read_text(encoding='utf-8'))
             if not isinstance(data,dict) or 'model' not in data or 'result' not in data:
                 continue
@@ -461,13 +494,77 @@ def saved_results():
                               'model_hash':data['result']['model_hash']})
         except (ValueError,KeyError,TypeError,OSError):
             continue
+    return available
+
+
+def saved_results():
+    with SAVED_LOCK:
+        return listed_saved_results(saved_catalog())
+
+
+def listed_saved_results(catalog):
     priority = {'2_agent_result.json':0,'agent_result.json':1}
+    titles = {'2_agent_result.json':'例 IV-2 · 已核对结果','agent_result.json':'例 IV-1 · 已核对结果'}
     output,seen = [],set()
-    for item in sorted(available,key=lambda item:(priority.get(item['name'],2),item['name'])):
+    for item in sorted(collect_saved_results(),key=lambda item:(priority.get(item['name'],2),item['name'])):
+        info = catalog['items'].get(item['model_hash'],{})
+        if info.get('deleted'):
+            continue
         if item['model_hash'] not in seen:
             seen.add(item['model_hash'])
+            item['title'] = info.get('title') or titles.get(item['name'],item['name'])
             output.append(item)
     return output
+
+
+def manage_saved_result(name, *, title=None, delete=False):
+    """名字按模型保存；删除将该模型的重复保存文件与配套文件移入本地回收目录。"""
+    with SAVED_LOCK:
+        saved_path(name)
+        catalog = saved_catalog()
+        entry = next((item for item in listed_saved_results(catalog) if item['name']==name),None)
+        if entry is None:
+            raise ValueError('保存记录不存在或已删除，请刷新列表')
+        key = entry['model_hash']
+        info = catalog['items'].setdefault(key,{})
+        if not delete:
+            if (not isinstance(title,str) or not title.strip() or len(title.strip())>100
+                or any(ord(c)<32 or ord(c)==127 for c in title)):
+                raise ValueError('名称须为1至100个字符，不能包含换行或控制字符')
+            info['title'] = title.strip()
+            write_json(ROOT/'results'/'.saved_catalog.json',catalog)
+            return
+        directory = (ROOT/'results').resolve()
+        trash = directory/'.trash'/secrets.token_hex(16)
+        if not trash.resolve().is_relative_to(directory) or (directory/'.trash').is_symlink():
+            raise ValueError('回收目录路径不合法')
+        files = set()
+        for item in collect_saved_results():
+            if item['model_hash']!=key:
+                continue
+            path = saved_path(item['name'])
+            files.add(path)
+            for suffix in ('.recognition.json','.summary.md','.answer.md','.3d.html','.model.html'):
+                companion = path.with_name(path.stem+suffix)
+                if companion.exists():
+                    if companion.is_symlink() or companion.resolve().parent!=directory:
+                        raise ValueError('配套文件路径不合法')
+                    files.add(companion)
+        trash.mkdir(parents=True,exist_ok=False)
+        write_json(trash/'manifest.json',{'model_hash':key,'title':entry['title'],
+            'deleted_at':datetime.now().isoformat(),'files':sorted(p.name for p in files)})
+        moved = []
+        try:
+            for path in sorted(files):
+                destination = trash/path.name
+                path.replace(destination)
+                moved.append((path,destination))
+            info.update(deleted=True,title=entry['title'])
+            write_json(ROOT/'results'/'.saved_catalog.json',catalog)
+        except OSError:
+            for source,destination in reversed(moved):
+                destination.replace(source)
+            raise
 
 
 class LocalServer(ThreadingHTTPServer):
@@ -635,6 +732,10 @@ class Handler(BaseHTTPRequestHandler):
                     s.revision += 1
                 elif action=='load':
                     s.open_saved(data.get('name'))
+                elif action=='rename_saved':
+                    manage_saved_result(data.get('name'),title=data.get('title'))
+                elif action=='delete_saved':
+                    manage_saved_result(data.get('name'),delete=True)
                 elif action=='view':
                     s.generate_visual('results' if s.agent.result is not None else 'structure')
                     s.revision += 1

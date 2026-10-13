@@ -47,7 +47,7 @@ class Element(InputRecord):
 
 class NodeLoad(InputRecord):
     node_id: StrictInt
-    components: Vector6  # Fx,Fy,Fz,Mx,My,Mz；力矩采用课件正号。
+    components: Vector6  # Fx,Fy,Fz,Mx,My,Mz；力矩采用项目正号。
 
 
 class MemberLoad(InputRecord):
@@ -73,7 +73,7 @@ class SectionQuery(InputRecord):
     element_id: StrictInt
     location: Literal['position', 'midspan']
     position: Number | None = None
-    side: Literal['left', 'right'] = 'right'  # 荷载不连续处的左/右极限；教材默认取右侧。
+    side: Literal['left', 'right'] = 'right'  # 荷载不连续处的左/右极限；参考资料默认取右侧。
 
     @model_validator(mode='after')
     def validate_query(self):

@@ -1,4 +1,4 @@
-"""2014理论 + 独立解析解；真实原生自由度，不靠空间刚架输出自证。"""
+"""项目理论 + 独立解析解；真实原生自由度，不靠空间刚架输出自证。"""
 from copy import deepcopy
 import unittest
 import numpy as np
